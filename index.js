@@ -18,10 +18,10 @@ restService.post('/finUNO', function(req, res) {
     var inputText = req.body.result.resolvedQuery;
     //var inputText = req.body.result && req.body.result.parameters && req.body.result.parameters.echoText ? req.body.result.parameters.echoText : "Seems like some problem. Speak again."
     for(var i=0;i<scrips.length;i++){
-        if(inputText.search(scrips[0].FIELD1||scrips[1].FIELD2) !== -1)
+        if(inputText.search(scrips[i].FIELD1)||inputText.search(scrips[i].FIELD2) !== -1)
             return res.json({
-                scrip-names : scrips[0].FIELD1,
-                speech : scrips[0].FIELD1
+                scrip-names : scrips[i].FIELD1,
+                speech : scrips[i].FIELD1
             });
      }
     /*return res.json({
