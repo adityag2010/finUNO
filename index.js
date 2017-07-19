@@ -15,7 +15,7 @@ var scrips = require("./EQUITY_L.json");
 //const scrip_name = random.split(",");
 
 restService.post('/finUNO', function(req, res) {
-    var random = "buy 20microns on nse";
+    var random = "buy 20MICRONS on nse";
     return res.json({
         speech : random.search(/scrips[0].FIELD2/i)
     });
