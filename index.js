@@ -16,7 +16,7 @@ restService.post('/finUNO', function(req, res) {
     return res.json({
         speech: inputText,
         displayText: inputText,
-        source: 'webhook-echo-sample'
+        source: 'webhook-financial-assistant'
     });
 });
 
