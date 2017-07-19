@@ -17,7 +17,7 @@ var scrips = require("./EQUITY_L.json");
 restService.post('/finUNO', function(req, res) {
     var random = "20MICRONS";
     return res.json({
-        speech : random.match(/scrips[0].FIELD2/i)
+        speech : random.match(scrips[0].FIELD2)
     });
     var inputText = req.body.result.resolvedQuery;
     //var inputText = req.body.result && req.body.result.parameters && req.body.result.parameters.echoText ? req.body.result.parameters.echoText : "Seems like some problem. Speak again."
