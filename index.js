@@ -11,7 +11,7 @@ restService.use(bodyParser.urlencoded({
 
 restService.use(bodyParser.json());
 
-var random = require(EQUITY_L_2.0);
+var random = require("./EQUITY_L_2");
 const scrip_name = random.split(",");
 
 restService.post('/finUNO', function(req, res) {
