@@ -15,14 +15,14 @@ var scrips = require("./EQUITY_L.json");
 //const scrip_name = random.split(",");
 
 restService.post('/finUNO', function(req, res) {
-    var random = "20MICRONS";
+    var random = "buy 20MICRONS on nse";
     return res.json({
-        speech : random.search(scrips[0].FIELD2)
+        speech : random.match(/scrips[0].FIELD2/i)
     });
     var inputText = req.body.result.resolvedQuery;
     //var inputText = req.body.result && req.body.result.parameters && req.body.result.parameters.echoText ? req.body.result.parameters.echoText : "Seems like some problem. Speak again."
     for(var i=0;i<scrips.length;i++){
-        if(inputText.search(/scrips[i].FIELD1/i) !== -1 || inputText.search(/scrips[i].FIELD2/i) !== -1)
+        if(inputText.search(scrips[i].FIELD1) !== -1 || inputText.search(scrips[i].FIELD2) !== -1)
             return res.json({
                 scripnames : scrips[i].FIELD1,
                 exchange : scrips[i].FIELD1,
