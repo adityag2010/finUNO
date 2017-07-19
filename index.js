@@ -11,13 +11,13 @@ restService.use(bodyParser.urlencoded({
 
 restService.use(bodyParser.json());
 
-var random = require("./EQUITY_L_2");
-const scrip_name = random.split(",");
+var random = require("./EQUITY_L.json");
+//const scrip_name = random.split(",");
 
 restService.post('/finUNO', function(req, res) {
     var inputText = req.body.result && req.body.result.parameters && req.body.result.parameters.echoText ? req.body.result.parameters.echoText : "Seems like some problem. Speak again."
     return res.json({
-        speech: scrip_name[0],
+        speech: random[0].FIELD1,
         displayText: inputText,
         source: 'webhook-financial-assistant'
     });
