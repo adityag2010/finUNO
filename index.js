@@ -19,7 +19,7 @@ restService.post('/finUNO', function(req, res) {
     return res.json({
         speech : random.toLowerCase().search((scrips[0].FIELD2).toLowerCase())
     });*/
-    var inputText = req.body.result.resolvedQuery;
+    var inputText = req.body.result.resolvedQuery
     /*var json_copy = req;
     json_copy.body.result.scripnames = "Aditya";
     json_copy.body.result.fulfillment.speech = "Hi this is Aditya";
