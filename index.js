@@ -20,11 +20,11 @@ restService.post('/finUNO', function(req, res) {
         speech : random.toLowerCase().search((scrips[0].FIELD2).toLowerCase())
     });*/
     var inputText = req.body.result.resolvedQuery;
-    var json_copy = req;
+    /*var json_copy = req;
     json_copy.body.result.scripnames = "Aditya";
     json_copy.body.result.fulfillment.speech = "Hi this is Aditya";
     //res.send(JSON.stringify(json_copy));
-    res = json_copy;
+    res = json_copy;*/
     return res.json({
         displayText : "I hope this works"
     });
