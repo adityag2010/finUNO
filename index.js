@@ -11,19 +11,13 @@ restService.use(bodyParser.urlencoded({
 
 restService.use(bodyParser.json());
 
-var scrips = require("./EQUITY_L.json");
-
-restService.post('/finUNO', function(req, res) {
-    var inputText = req.body.result.resolvedQuery;
+restService.post('/echo', function(req, res) {
+    var speech = req.body.result && req.body.result.parameters && req.body.result.parameters.echoText ? req.body.result.parameters.echoText : "Seems like some problem. Speak again."
     return res.json({
-        speech : scrips[0].FIELD1,
-        displayText : "I hope this works now atleast"
+        speech: speech,
+        displayText: speech,
+        source: 'webhook-echo-sample'
     });
-    /*return res.json({
-        speech: inputText,
-        displayText: inputText,
-        source: 'webhook-financial-assistant'
-    });*/
 });
 
 restService.listen((process.env.PORT || 8000), function() {
