@@ -40,7 +40,7 @@ restService.post('/finUNO', function(req, res) {
         tradeContextOut : {
          scripnames : "Aditya"
         },
-        speech: "Random stuff......",
+        //speech: "Random stuff......",
         displayText: scrips[0].FIELD1,
         source : random
     });
