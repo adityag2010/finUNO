@@ -23,7 +23,7 @@ restService.post('/finUNO', function(req, res) {
     var json_copy = req;
     json_copy.body.result.scripnames = "Aditya";
     json_copy.body.result.fulfillment.speech = "Hi this is Aditya";
-    res.send(json_copy);
+    res.send(JSON.stringify(json_copy));
     //req.body.result.scripnames = :"aditya";
     //var inputText = req.body.result && req.body.result.parameters && req.body.result.parameters.echoText ? req.body.result.parameters.echoText : "Seems like some problem. Speak again."
     for(var i=0;i<scrips.length;i++){
