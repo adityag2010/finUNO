@@ -17,7 +17,7 @@ restService.post('/finUNO', function(req, res) {
     var inputText= req.body.result.resolvedQuery;
     var json_copy  = req;
     json_copy.body.result.scripnames  = "Aditya";
-    res = json_copy;
+    res = JSON.stringify(json_copy);
     return res.json({
         speech: "WTF",
         displayText: scrips[0].FIELD1,
