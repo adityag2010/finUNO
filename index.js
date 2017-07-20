@@ -56,7 +56,8 @@ restService.post('/finUNO', function(req, res) {
                 product_type : product_type,
                 shares : shares,
                 validity : validity,
-                scripnames : "Gupta"
+                scripnames : "Gupta",
+                random : "Whatever"
             }
         },
         displayText: scrips[0].FIELD1,
