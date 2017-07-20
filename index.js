@@ -28,7 +28,7 @@ restService.post('/finUNO', function(req, res) {
     //var inputText = req.body.result && req.body.result.parameters && req.body.result.parameters.echoText ? req.body.result.parameters.echoText : "Seems like some problem. Speak again."
     for(var i=0;i<scrips.length;i++){
         if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1 || (inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase()) !== -1)
-          res.send(json_copy);
+          res.send(JSON.stringify(json_copy));
             /* return res.json({
                 //scripnames : scrips[i].FIELD1,
                 //speech : scrips[i].FIELD1,
