@@ -27,7 +27,7 @@ restService.post('/finUNO', function(req, res) {
     res = json_copy;
     return res.json({
         displayText : "I hope this works";
-    })
+    });
     //req.body.result.scripnames = :"aditya";
     //var inputText = req.body.result && req.body.result.parameters && req.body.result.parameters.echoText ? req.body.result.parameters.echoText : "Seems like some problem. Speak again."
     for(var i=0;i<scrips.length;i++){
