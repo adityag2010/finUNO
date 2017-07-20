@@ -15,12 +15,12 @@ restService.use(bodyParser.json());
 
 restService.post('/finUNO', function(req, res) {
     var inputText= req.body.result.resolvedQuery;
-    //var json_copy  = JSON.parse(JSON.stringify(req));
-    //json_copy.body.result.scripnames  = "Aditya";
+    var json_copy  = JSON.parse(JSON.stringify(req));
+    json_copy.body.result.scripnames  = "Aditya";
     //res = JSON.parse(JSON.stringify(json_copy));
-    var json_copy = jQuery.extend(true,{}, req);
-    json_copy.body.result.scripnames = "Aditya";
-    res = jQuery.extend(true,{}, json_copy)
+    //var json_copy = jQuery.extend(true,{}, req);
+    //json_copy.body.result.scripnames = "Aditya";
+    //res = jQuery.extend(true,{}, json_copy)
     
     for(var i=0;i<scrips.length;i++){
         if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1 || (inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase()) !== -1)
@@ -33,7 +33,7 @@ restService.post('/finUNO', function(req, res) {
      return res.json({
         speech: "Random stuff......",
         displayText: scrips[0].FIELD1,
-        source : inputText
+        source : json_copy.body.result.scripnames
     });
 });
  
