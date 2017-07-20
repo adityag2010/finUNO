@@ -17,8 +17,8 @@ restService.post('/finUNO', function(req, res) {
     var inputText= req.body.result.resolvedQuery;
     var json_copy = req;
     var random = json_copy.body.result.resolvedQuery;
-    json_copy.body.result.parameters.parameters.scripnames = "Aditya";
-    req = json_copy;
+    json_copy.body.result.parameters.scripnames = "Aditya";
+    random = json_copy.body.result.parameters.scripnames;
     
     
     for(var i=0;i<scrips.length;i++){
