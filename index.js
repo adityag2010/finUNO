@@ -15,10 +15,10 @@ restService.use(bodyParser.json());
 
 restService.post('/finUNO', function(req, res) {
     //var inputText = req.body.result.resolvedQuery;
-   /* return res.json({
+    return res.json({
         speech: "WTF",
         displayText: scrips[0].FIELD1;
-    });*/
+    });
 });
 
 restService.listen((process.env.PORT || 8000), function() {
