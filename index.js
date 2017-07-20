@@ -15,6 +15,8 @@ restService.use(bodyParser.json());
 
 restService.post('/finUNO', function(req, res) {
     var inputText= req.body.result.resolvedQuery;
+    var json_copy = req;
+    var random = json_copy.body.result.resolvedQuery;
     //var json_copy  = JSON.parse(JSON.stringify(req));
     //json_copy.body.result.scripnames  = "Aditya";
     //var stupid = json_copy.body.result.scripnames;
@@ -34,7 +36,7 @@ restService.post('/finUNO', function(req, res) {
      return res.json({
         speech: "Random stuff......",
         displayText: scrips[0].FIELD1,
-        source : inputText
+        source : random
     });
 });
  
