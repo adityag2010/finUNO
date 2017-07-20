@@ -21,7 +21,8 @@ restService.post('/finUNO', function(req, res) {
     });
     for(var i=0;i<scrips.length;i++){
         if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1 || (inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase()) !== -1)
-            
+    
+    }    
 });
 
 restService.listen((process.env.PORT || 8000), function() {
