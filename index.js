@@ -15,19 +15,19 @@ var scrips = require("./EQUITY_L.json");
 //const scrip_name = random.split(",");
 
 restService.post('/finUNO', function(req, res) {
-    /*var random = "buy 20microns on nse";
+    var random = "buy 20microns on nse";
     return res.json({
         speech : random.toLowerCase().search((scrips[0].FIELD2).toLowerCase())
-    });*/
+    });
     var inputText = req.body.result.resolvedQuery;
     /*var json_copy = req;
     json_copy.body.result.scripnames = "Aditya";
     json_copy.body.result.fulfillment.speech = "Hi this is Aditya";
     //res.send(JSON.stringify(json_copy));
     res = json_copy;*/
-    return res.json({
+   /* return res.json({
         displayText : "I hope this works"
-    });
+    });*/
     //req.body.result.scripnames = :"aditya";
     //var inputText = req.body.result && req.body.result.parameters && req.body.result.parameters.echoText ? req.body.result.parameters.echoText : "Seems like some problem. Speak again."
     for(var i=0;i<scrips.length;i++){
