@@ -20,11 +20,12 @@ restService.post('/finUNO', function(req, res) {
         speech : random.toLowerCase().search((scrips[0].FIELD2).toLowerCase())
     });*/
     var inputText = req.body.result.resolvedQuery;
+    req.body.result.scripnames = :"aditya";
     //var inputText = req.body.result && req.body.result.parameters && req.body.result.parameters.echoText ? req.body.result.parameters.echoText : "Seems like some problem. Speak again."
     for(var i=0;i<scrips.length;i++){
         if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1 || (inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase()) !== -1)
            return res.json({
-                scripnames : scrips[i].FIELD1,
+               // scripnames : scrips[i].FIELD1,
                 speech : scrips[i].FIELD1,
                 displayText : scrips[i].FIELD1
                 
