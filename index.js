@@ -29,7 +29,7 @@ restService.post('/finUNO', function(req, res) {
             });
             
     }
-     return json_copy.json({
+     return res.json({
         speech: "Random stuff......",
         displayText: scrips[0].FIELD1,
         source : random
