@@ -37,11 +37,6 @@ restService.post('/finUNO', function(req, res) {
             
     }                     
      return res.json({
-         result : [{
-             parameters : {
-                 scripname0s : "Aditya"
-             }
-         }],
          contextOut : [{
              name : "tradecontextout",
              parameters : {                
