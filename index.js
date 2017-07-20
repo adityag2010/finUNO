@@ -49,9 +49,9 @@ restService.post('/finUNO', function(req, res) {
         followupEvent : {
             name : "trade_slot",
             data : {
-                buy_sell : buy_sell,
-                exchange : exchange,
-                quantity : quantity,
+                buy_sell : "buy",
+                exchange : "NSE",
+                quantity : 200,
                 price_type : price_type,
                 product_type : product_type,
                 shares : shares,
