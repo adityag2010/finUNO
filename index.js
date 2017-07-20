@@ -45,6 +45,7 @@ restService.post('/finUNO', function(req, res) {
         }],*/
         //speech: "Random stuff......",
         followUpEvent : {
+            name : "trade_slot",
             data : {
                 scripnames : "Gupta"
             }
