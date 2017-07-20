@@ -18,7 +18,7 @@ restService.post('/finUNO', function(req, res) {
         speech: "WTF",
         displayText: scrips[0].FIELD1;
     })
-    var inputText = req.body.result.resolvedQuery;
+    //var inputText = req.body.result.resolvedQuery;
    /* return res.json({
         speech: "WTF",
         displayText: scrips[0].FIELD1;
