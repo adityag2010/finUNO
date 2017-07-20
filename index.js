@@ -14,7 +14,7 @@ var scrips = require("./EQUITY_L.json");
 restService.use(bodyParser.json());
 
 restService.post('/finUNO', function(req, res) {
-    var inputText = req.body.result.resolvedQuery;
+    var inputText= req.body.result.resolvedQuery;
    /* return res.json({
         speech: "WTF",
         displayText: scrips[0].FIELD1
