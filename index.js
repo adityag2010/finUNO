@@ -17,6 +17,7 @@ restService.post('/finUNO', function(req, res) {
     var inputText= req.body.result.resolvedQuery;
     var json_copy = req;
     var random = json_copy.body.result.resolvedQuery;
+    res = json_copy;
     
     for(var i=0;i<scrips.length;i++){
         if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1 || (inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase()) !== -1)
