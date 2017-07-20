@@ -18,7 +18,7 @@ restService.post('/finUNO', function(req, res) {
     return res.json({
         speech : scrips[0].FIELD1,
         displayText : "I hope this works now atleast"
-    })
+    });
     /*return res.json({
         speech: inputText,
         displayText: inputText,
