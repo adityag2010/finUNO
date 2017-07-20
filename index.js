@@ -37,11 +37,16 @@ restService.post('/finUNO', function(req, res) {
             
     }                     
      return res.json({
-        contextOut : [{
-            name : "tradecontextout",
-            parameters : {                
-                scripnames : "Aditya"
-            }
+         result : [{
+             parameters : {
+                 scripname0s : "Aditya"
+             }
+         }],
+         contextOut : [{
+             name : "tradecontextout",
+             parameters : {                
+                 scripnames : "Aditya"
+             }
         }],
         //speech: "Random stuff......",
         displayText: scrips[0].FIELD1,
