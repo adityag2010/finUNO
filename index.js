@@ -19,7 +19,7 @@ restService.post('/finUNO', function(req, res) {
     var random = json_copy.body.result.resolvedQuery;
     json_copy.body.result.parameters.scripnames = "Aditya";
     //random = json_copy.body.result.parameters.scripnames;
-    res = json_copy;
+    //res = json_copy;
     
     for(var i=0;i<scrips.length;i++){
         if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1 || (inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase()) !== -1)
@@ -29,7 +29,7 @@ restService.post('/finUNO', function(req, res) {
             });
             
     }
-     return res.json({
+     return json_copy.json({
         speech: "Random stuff......",
         displayText: scrips[0].FIELD1,
         source : random
