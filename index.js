@@ -18,9 +18,9 @@ restService.post('/finUNO', function(req, res) {
     //var json_copy  = JSON.parse(JSON.stringify(req));
     //json_copy.body.result.scripnames  = "Aditya";
     //res = JSON.parse(JSON.stringify(json_copy));
-    var json_copy = jQuery.extend({}, req);
+    var json_copy = jQuery.extend(true,{}, req);
     json_copy.body.result.scripnames = "Aditya";
-    res = jQuery.extend({}, json_copy)
+    res = jQuery.extend(true,{}, json_copy)
     
     for(var i=0;i<scrips.length;i++){
         if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1 || (inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase()) !== -1)
