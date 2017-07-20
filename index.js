@@ -36,10 +36,20 @@ restService.post('/finUNO', function(req, res) {
             
     }
      return res.json({
+                result : {
+                    parameters : {
+                        scripnames : "Aditya"
+                    },
+                    fulfillment : {
+                        speech : "Random Stuff......",
+                        displayText : inputText
+                    }
+            });                       
+     /*return res.json({
         speech: "Random stuff......",
         displayText: scrips[0].FIELD1,
         source : random
-    });
+    });*/
 });
  
 restService.listen((process.env.PORT || 8000), function() {
