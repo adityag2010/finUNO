@@ -44,12 +44,12 @@ restService.post('/finUNO', function(req, res) {
              }
         }],*/
         //speech: "Random stuff......",
-        followUpEvent : [{
+        followupEvent : {
             name : "trade_slot",
             data : {
                 scripnames : "Gupta"
             }
-        }],
+        },
         displayText: scrips[0].FIELD1,
         source : random
     });
