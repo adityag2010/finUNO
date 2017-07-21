@@ -43,6 +43,7 @@ restService.post('/finUNO', function(req, res) {
              name : "tradecontextout",
              parameters : {
                  quantity : "100",
+                 "buy_sell.original" : "",
                  shares : "",
                  product_type : "",
                  price_type : "",
