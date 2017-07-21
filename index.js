@@ -41,8 +41,24 @@ restService.post('/finUNO', function(req, res) {
      return res.json({
          contextOut : [{
              name : "tradecontextout",
-             parameters : {                
-                 scripnames : "Aditya"
+             parameters : {
+                 quantity : "100",
+                 buy_sell.original : "buy",
+                 shares.original : "",
+                 product_type.original : "",
+                 shares : "",
+                 quantity.original: "100",
+                 product_type: "",
+                 exchange.original : "nse",
+                 validity.original : "",
+                 scripnames.original : "",
+                 price_type : "",
+                 exchange: "NSE",
+                 validity : "",
+                 buy_sell : "buy",
+                 scripnames : "Aditya",
+                 price_type.original : ""
+                 //scripnames : "Aditya"
              }
         }],
         //speech: "Random stuff......",
