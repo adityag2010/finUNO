@@ -51,12 +51,12 @@ restService.post('/finUNO', function(req, res) {
                  product_type: "",
                  exchange.original : "nse",
                  validity.original : "",
-                 scripnames.original : "",
+                 //scripnames.original : "",
                  price_type : "",
                  exchange: "NSE",
                  validity : "",
                  buy_sell : "buy",
-                 scripnames : "Aditya",
+                 //scripnames : "Aditya",
                  price_type.original : ""
                 // scripnames : "Aditya"
              },
