@@ -74,8 +74,8 @@ restService.post('/finUNO', function(req, res) {
                  buy_sell : "buy",
                  //scripnames : "Aditya",
                  //price_type.original : ""*/
-             },
-             lifespan : 5
+             }//,
+             //lifespan : 5
         }],
         //speech: "Random stuff......",
         /*followupEvent : {
