@@ -59,7 +59,7 @@ restService.post('/finUNO', function(req, res) {
                  //scripnames : "Aditya",
                  //price_type.original : ""*/
                  scripnames : "Aditya",
-                 price_type : "WTF"
+                 //price_type : "random"
              },
              lifespan : 5
         }],
