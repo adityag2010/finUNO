@@ -39,14 +39,14 @@ restService.post('/finUNO', function(req, res) {
             
     }                     
      return res.json({
-         /*contextOut : [{
+         contextOut : [{
              name : "tradecontextout",
              parameters : {                
                  scripnames : "Aditya"
              }
-        }],*/
+        }],
         //speech: "Random stuff......",
-        followupEvent : {
+        /*followupEvent : {
             name : "trade_slot",
             data : {
                 buy_sell : "buy",
@@ -59,7 +59,7 @@ restService.post('/finUNO', function(req, res) {
                 scripnames : "Gupta",
                 random : "Whatever"
             }
-        },
+        },*/
         displayText: scrips[0].FIELD1,
         source : inputText
     });
