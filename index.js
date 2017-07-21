@@ -15,19 +15,54 @@ restService.use(bodyParser.json());
 
 restService.post('/finUNO', function(req, res) {
     var inputText= req.body.result.resolvedQuery;
-    return res.json({
-        speech: "WTF",
-        displayText: scrips[0].FIELD1,
-        source : inputText
-    });
+    var buy_sell = req.body.result.parameters.buy_sell;
+    var exchange = req.body.result.parameters.exchange;
+    var quantity = req.body.result.parameters.quantity;
+    var price_type = req.body.result.parameters.price_type;
+    var product_type = req.body.result.parameters.product_type;
+    var shares = req.body.result.parameters.shares;
+    var validity = req.body.result.parameters.validity;
+   
     for(var i=0;i<scrips.length;i++){
         if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1 || (inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase()) !== -1)
             return res.json({
-                speech : scrip[i].FIELD1,
-                displayText : inputText
+              /*  result : {
+                    parameters : {
+                        scripnames : "Aditya"
+                    },
+                    fulfillment : {
+                        speech : scrip[i].FIELD1,
+                        displayText : inputText
+                    }*/
+                speech : scrip[i].FIELD1
             });
             
-    }
+    }                     
+     return res.json({
+         contextOut : [{
+             name : "tradecontextout",
+             parameters : {                
+                 scripnames : "Aditya"
+             }
+        }],
+        //speech: "Random stuff......",
+        /*followupEvent : {
+            name : "trade_slot",
+            data : {
+                buy_sell : "buy",
+                exchange : "NSE",
+                quantity : 200,
+                price_type : price_type,
+                product_type : product_type,
+                shares : shares,
+                validity : validity,
+                scripnames : "Gupta",
+                random : "Whatever"
+            }
+        },*/
+        displayText: scrips[0].FIELD1,
+        source : inputText
+    });
 });
  
 restService.listen((process.env.PORT || 8000), function() {
