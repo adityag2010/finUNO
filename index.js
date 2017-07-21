@@ -44,13 +44,20 @@ restService.post('/finUNO', function(req, res) {
              parameters : {
                  quantity : "100",
                  "buy_sell.original" : "",
+                 "shares.original" : "",
+                 "product_type.original" : "",
                  shares : "",
+                 "quantity.original" : "100",
                  product_type : "",
+                 "exchange.original" : "nse",
+                 "validity.original" : "",
+                 "scripnames.original" : "",
                  price_type : "",
                  exchange : "NSE",
                  validity : "",
                  buy_sell : "buy",
-                 scripnames : "Aditya"
+                 scripnames : "Aditya",
+                 "price_type.original" : ""
                  /*quantity : "100",
                  ///buy_sell.original : "buy",
                  //shares.original : "",
@@ -67,7 +74,6 @@ restService.post('/finUNO', function(req, res) {
                  buy_sell : "buy",
                  //scripnames : "Aditya",
                  //price_type.original : ""*/
-                 //scripnames : "Aditya"
              },
              lifespan : 5
         }],
