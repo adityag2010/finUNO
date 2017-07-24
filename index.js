@@ -68,15 +68,15 @@ restService.post('/finUNO', function(req, res) {
         followupEvent : {
             name : "trade_slot",
             data : {
-                buy_sell : "buy",
+               /* buy_sell : "buy",
                 exchange : "NSE",
                 quantity : 200,
                 price_type : price_type,
                 product_type : product_type,
                 shares : shares,
                 validity : validity,
-                scripnames : "Gupta",
-                random : "Whatever"
+               */ scripnames : "Gupta",
+               // random : "Whatever"
             }
         },
         displayText: scrips[0].FIELD1,
