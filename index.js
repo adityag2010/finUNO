@@ -40,40 +40,16 @@ restService.post('/finUNO', function(req, res) {
             });
             
     }        */             
-     return res.json({
-        /* contextOut : [{
-             name : "tradecontextout",
-             parameters : {
-                 /*quantity : "100",
-                 "buy_sell.original" : "",
-                 "shares.original" : "",
-                 "product_type.original" : "",
-                 shares : "",
-                 "exchange.original" : "nse",
-                 product_type : "",
-                 "quantity.original" : "100",
-                 "validity.original" : "",
-                 "scripnames.original" : "",
-                 price_type : "",
-                 exchange : "NSE",
-                 validity : "",
-                 scripnames : "Aditya",
-                 buy_sell : "buy",
-                 //"price_type.original" : ""
-                 scripnames : "Aditya"
-             }//,
-             //lifespan : 5
-        }],*/
-        //speech: "Random stuff......",
-        followupEvent : {
-            name : "trade_slot",
-            data : {
-                scripnames : "Gupta"
-            }
-        },
-        displayText: scrips[0].FIELD1,
-        source : inputText
-    });
+     return res.json({    
+         followupEvent : {
+             name : "trade_slot",
+             data : {
+                 scripnames : "Gupta"
+             }
+         },
+         displayText: scrips[0].FIELD1,
+         source : inputText
+     });
 });
  
 restService.listen((process.env.PORT || 8000), function() {
