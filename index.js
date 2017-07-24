@@ -46,9 +46,9 @@ restService.post('/finUNO', function(req, res) {
              data : {
                  scripnames : "Gupta"
              }
-         },
-         displayText: scrips[0].FIELD1,
-         source : inputText
+         }
+         //displayText: scrips[0].FIELD1,
+         //source : inputText
      });
 });
  
