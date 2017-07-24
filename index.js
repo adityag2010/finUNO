@@ -9,7 +9,7 @@ restService.use(bodyParser.urlencoded({
     extended: true
 }));
 
-var scrips = require("./EQUITY_L.json");
+//var scrips = require("./EQUITY_L.json");
 
 restService.use(bodyParser.json());
 
@@ -37,7 +37,7 @@ restService.post('/finUNO', function(req, res) {
             });
             
     }                     
-     return res.json({
+     /*return res.json({
          contextOut : [{
              name : "tradecontextout",
              parameters : {
@@ -56,7 +56,7 @@ restService.post('/finUNO', function(req, res) {
                  validity : "",
                  scripnames : "Aditya",
                  buy_sell : "buy",
-                 "price_type.original" : ""*/
+                 //"price_type.original" : ""
                  scripnames : "Aditya"
              }//,
              //lifespan : 5
@@ -75,10 +75,10 @@ restService.post('/finUNO', function(req, res) {
                 scripnames : "Gupta",
                 random : "Whatever"
             }
-        },*/
+        },
         displayText: scrips[0].FIELD1,
         source : inputText
-    });
+    });*/
 });
  
 restService.listen((process.env.PORT || 8000), function() {
