@@ -26,7 +26,7 @@ restService.post('/finUNO', function(req, res) {
    */
     for(var i=0 ; i < scrips.length ; i++){
         if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1 || (inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase()) !== -1)
-            return res.json({
+           /* return res.json({
                 contextOut : [{
                     name : "tradecontextout",
                     parameters : {
@@ -39,9 +39,9 @@ restService.post('/finUNO', function(req, res) {
                 }
             });
             
-    }                     
-     /*return res.json({
-         contextOut : [{
+    }        */             
+     return res.json({
+        /* contextOut : [{
              name : "tradecontextout",
              parameters : {
                  /*quantity : "100",
@@ -63,9 +63,9 @@ restService.post('/finUNO', function(req, res) {
                  scripnames : "Aditya"
              }//,
              //lifespan : 5
-        }],
+        }],*/
         //speech: "Random stuff......",
-        /*followupEvent : {
+        followupEvent : {
             name : "trade_slot",
             data : {
                 buy_sell : "buy",
@@ -81,7 +81,7 @@ restService.post('/finUNO', function(req, res) {
         },
         displayText: scrips[0].FIELD1,
         source : inputText
-    });*/
+    });
 });
  
 restService.listen((process.env.PORT || 8000), function() {
