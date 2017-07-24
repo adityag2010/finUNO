@@ -33,7 +33,7 @@ restService.post('/finUNO', function(req, res) {
                         scripnames : "Scripcheck Succcesful"
                     }
                 }],
-                speech : scrip[i].FIELD1
+                speech : scrips[i].FIELD1
             });
             
     }                     
