@@ -24,7 +24,7 @@ restService.post('/finUNO', function(req, res) {
     var shares = req.body.result.parameters.shares;
     var validity = req.body.result.parameters.validity;
    */
-    for(var i=0 ; i < scrips ; i++){
+    for(var i=0 ; i < scrips.length ; i++){
         if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1 || (inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase()) !== -1)
             return res.json({
                 contextOut : [{
