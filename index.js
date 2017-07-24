@@ -32,7 +32,7 @@ restService.post('/finUNO', function(req, res) {
                     parameters : {
                         scripnames : "Scripcheck Succcesful"
                     }
-                }],
+                }]
                 //speech : scrips[i].FIELD1
             });
             
