@@ -33,7 +33,7 @@ restService.post('/finUNO', function(req, res) {
                         scripnames : "Scripcheck Succcesful"
                     }
                 }],
-                speech : scrips[i].FIELD1,
+                //speech : scrips[i].FIELD1,
                 data : {
                     webhook_values : "Data method trial"
                 }
