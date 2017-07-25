@@ -105,6 +105,25 @@ restService.post('/finUNO', function(req, res) {
             inputText = inputText.toUpperCase();
             inputText = inputText.replace(scripnames.toUpperCase() , "");
             inputText = inputText.replace(shares.toUpperCase() , "");
+            do{
+                var temp = inputText;
+                inputText = inputText.replace(" ","");
+            }while(temp!==inputText);
+            for(var i=0 ; i < scrips.length ; i++){
+               if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1 || (inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase()) !== -1){
+                   scripnames = scrips[i].FIELD1;
+                   return res.json({
+                       folloupEvent : {
+                           data : {
+                               scripnames : scripnames,
+                               shares : shares
+                           },
+                           name : "holdings_scrip_specific_event_followup"
+                       }
+                   });
+               }
+            }
+            
     }
 });
  
