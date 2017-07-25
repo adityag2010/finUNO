@@ -113,7 +113,7 @@ restService.post('/finUNO', function(req, res) {
                if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1 || (inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase()) !== -1){
                    scripnames = scrips[i].FIELD1;
                    return res.json({
-                       folloupEvent : {
+                       followupEvent : {
                            data : {
                                scripnames : scripnames,
                                shares : shares
