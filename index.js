@@ -118,7 +118,8 @@ restService.post('/finUNO', function(req, res) {
                                scripnames : scripnames,
                                shares : shares
                            },
-                           name : "holdings_scrip_specific_event_followup"
+                           name : "holdings_scrip_specific_event_followup",
+                           lifespan : 1
                        }
                    });
                }
