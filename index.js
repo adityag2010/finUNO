@@ -86,14 +86,14 @@ restService.post('/finUNO', function(req, res) {
                 return res.json({
                     followupEvent : {
                         data : {
-                            buy_sell_w : buy_sell,
-                            exchange_w : exchange,
-                            quantity_w : quantity,
-                            scripnames_w : scripnames,
-                            price_type_w : price_type,
-                            product_type_w : product_type,
-                            validity_w : validity,
-                            shares_w : shares
+                            buy_sell : buy_sell,
+                            exchange : exchange,
+                            quantity : quantity,
+                            scripnames : scripnames,
+                            price_type : price_type,
+                            product_type : product_type,
+                            validity : validity,
+                            shares : shares
                         },
                         name : "trade_slot_fill"
                     }
@@ -115,8 +115,8 @@ restService.post('/finUNO', function(req, res) {
                    return res.json({
                        followupEvent : {
                            data : {
-                               scripnames_w : scripnames,
-                               shares_w : shares
+                               scripnames : scripnames,
+                               shares : shares
                            },
                            name : "holdings_scrip_specific_event_followup"
                        }
