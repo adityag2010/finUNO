@@ -42,7 +42,7 @@ restService.post('/finUNO', function(req, res) {
             do{
                 var temp = inputText;
                 inputText = inputText.replace(" ","");
-            }while(temp!=inputText);
+            }while(temp!==inputText);
             for(var i=0 ; i < scrips.length ; i++){
                 if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1 || (inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase()) !== -1)
                     scripnames = scrips[i].FIELD1;
