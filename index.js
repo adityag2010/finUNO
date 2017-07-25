@@ -70,7 +70,7 @@ restService.post('/finUNO', function(req, res) {
                     }
                 }
             }
-            if(exchange_scrip_match === 0)
+            if(exchange_scrip_match === 0 && scripnames !== "")
                 return res.json({
                     contextOut : [{
                         name : "tradecontextout",
@@ -81,21 +81,24 @@ restService.post('/finUNO', function(req, res) {
                     speech : exchange_possibilities,
                     displayText : exchange_possibilities
                 });
-            return res.json({
-                followupEvent : {
-                    data : {
-                        buy_sell : buy_sell,
-                        exchange : exchange,
-                        quantity : quantity,
-                        scripnames : scripnames,
-                        price_type : price_type,
-                        product_type : product_type,
-                        validity : validity,
-                        shares : shares
-                    },
-                    name : "trade_slot_fill"
-                }
-            });
+            if(scripnames !== "" && exchange !== "" && buy_sell !== "" && quantity !== ""){
+                
+                return res.json({
+                    followupEvent : {
+                        data : {
+                            buy_sell : buy_sell,
+                            exchange : exchange,
+                            quantity : quantity,
+                            scripnames : scripnames,
+                            price_type : price_type,
+                            product_type : product_type,
+                            validity : validity,
+                            shares : shares
+                        },
+                        name : "trade_slot_fill"
+                    }
+                });
+            }
     }
 //--------------------------------------------------------------------------------------------------------    
 /*    for(var i=0 ; i < scrips.length ; i++){
