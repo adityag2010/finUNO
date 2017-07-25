@@ -30,7 +30,7 @@ restService.post('/finUNO', function(req, res) {
             var validity = req.body.result.contexts[0].parameters.validity.original;
             var scripnames = req.body.result.parameters.scripnames;
             var exchange_possibilities = "The stock you have chosen is not available on ";
-            exchange_possibilities = exchange_possibilities.concat(exchange);
+            exchange_possibilities = exchange_possibilities.concat(JSON.stringify(exchange));
             exchange_possibilities = exchange_possibilities.concat(". Please choose from the following :");
             inputText = inputText.replace(buy_sell , "");
             inputText = inputText.replace(exchange , "");
@@ -62,7 +62,7 @@ restService.post('/finUNO', function(req, res) {
                     if(scripnames === scrips[i].FIELD1){
                         exchange_possibilities = exchange_possibilities.concat(" ");
                         exchange_possibilities = exchange_possibilities.concat(scrips[i].FIELD3);
-                        if(exchange === scrips[i].FIELD3){
+                        if((exchange.toUpperCase()) === scrips[i].FIELD3){
                             exchange_scrip_match = 1;
                             break;
                         }
