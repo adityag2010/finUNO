@@ -32,13 +32,14 @@ restService.post('/finUNO', function(req, res) {
             var exchange_possibilities = "The stock you have chosen is not available on ";
             exchange_possibilities = exchange_possibilities.concat(exchange);
             exchange_possibilities = exchange_possibilities.concat(". Please choose from the following :");
-            inputText = inputText.replace(buy_sell , "");
-            inputText = inputText.replace(exchange , "");
-            inputText = inputText.replace(price_type , "");
-            inputText = inputText.replace(product_type , "");
-            inputText = inputText.replace(quantity , "");
-            inputText = inputText.replace(shares , "");
-            inputText = inputText.replace(validity , "");
+            inputText = inputText.toUpperCase();
+            inputText = inputText.replace(buy_sell.toUpperCase() , "");
+            inputText = inputText.replace(exchange.toUpperCase() , "");
+            inputText = inputText.replace(price_type.toUpperCase() , "");
+            inputText = inputText.replace(product_type.toUpperCase() , "");
+            inputText = inputText.replace(quantity.toUpperCase() , "");
+            inputText = inputText.replace(shares.toUpperCase() , "");
+            inputText = inputText.replace(validity.toUpperCase() , "");
             do{
                 var temp = inputText;
                 inputText = inputText.replace(" ","");
