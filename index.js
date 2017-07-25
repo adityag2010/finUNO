@@ -21,7 +21,7 @@ restService.post('/finUNO', function(req, res) {
     switch(action) {
             
         case "trade_happening" : 
-            var buy_sell = req.body.result.contexts[0].parameters.buy_sell.original;
+            var buy_sell = req.body.result.parameters.buy_sell;
             var exchange = req.body.result.contexts[0].parameters.exchange.original;
             var price_type = req.body.result.contexts[0].parameters.price_type,original;
             var product_type = req.body.result.contexts[0].parameters.product_type.original;
