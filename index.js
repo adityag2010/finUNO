@@ -62,7 +62,7 @@ restService.post('/finUNO', function(req, res) {
                     if(scripnames === scrips[i].FIELD1){
                         exchange_possibilities = exchange_possibilities.concat(" ");
                         exchange_possibilities = exchange_possibilities.concat(scrips[i].FIELD3);
-                        if((exchange) === scrips[i].FIELD3){
+                        if((exchange.toUpperCase()) === scrips[i].FIELD3){
                             exchange_scrip_match = 1;
                             break;
                         }
