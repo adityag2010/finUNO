@@ -99,7 +99,12 @@ restService.post('/finUNO', function(req, res) {
                     }
                 });
             }
-        
+        case "holdings_scrip_specific" :
+            var scripnames = req.body.result.parameters.scripnames;
+            var shares = req.body.result.parameters.shares;
+            inputText = inputText.toUpperCase();
+            inputText = inputText.replace(scripnames.toUpperCase() , "");
+            inputText = inputText.replace(shares.toUpperCase() , "");
     }
 });
  
