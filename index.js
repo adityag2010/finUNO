@@ -40,10 +40,10 @@ restService.post('/finUNO', function(req, res) {
             inputText = inputText.replace(quantity.toUpperCase() , "");
             inputText = inputText.replace(shares.toUpperCase() , "");
             inputText = inputText.replace(validity.toUpperCase() , "");
-            do{
+           /* do{
                 var temp = inputText;
                 inputText = inputText.replace(" ","");
-            }while(temp!==inputText);
+            }while(temp!==inputText); */
             for(var i=0 ; i < scrips.length ; i++){
                 if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1 || (inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase()) !== -1)
                     scripnames = scrips[i].FIELD1;
@@ -105,10 +105,10 @@ restService.post('/finUNO', function(req, res) {
             inputText = inputText.toUpperCase();
             //inputText = inputText.replace(scripnames.toUpperCase() , "");
             inputText = inputText.replace(shares.toUpperCase() , "");
-            do{
+           /* do{
                 var temp = inputText;
                 inputText = inputText.replace(" ","");
-            }while(temp!==inputText);
+            }while(temp!==inputText);*/
             for(var i=0 ; i < scrips.length ; i++){
                if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1 || (inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase()) !== -1){
                    scripnames = scrips[i].FIELD1;
@@ -118,8 +118,7 @@ restService.post('/finUNO', function(req, res) {
                                scripnames : scripnames,
                                shares : shares
                            },
-                           name : "holdings_scrip_specific_event_followup",
-                           lifespan : 1
+                           name : "holdings_scrip_specific_event_followup"
                        }
                    });
                }
