@@ -78,7 +78,8 @@ restService.post('/finUNO', function(req, res) {
                         }
                     }],
                     speech : exchange_possibilities,
-                    displayText : exchange_possibilities
+                    displayText : exchange_possibilities,
+                    typeof : typeof exchange
                 });
             return res.json({
                 followupEvent : {
