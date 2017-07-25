@@ -84,9 +84,9 @@ restService.post('/finUNO', function(req, res) {
             if(scripnames !== "" && exchange !== "" && buy_sell !== "" && quantity !== ""){
                 
                 return res.json({
-                    contextOut : [{
+                   /* contextOut : [{
                         lifespan : 1
-                    }],
+                    }],*/
                     followupEvent : {
                         data : {
                             buy_sell : buy_sell,
