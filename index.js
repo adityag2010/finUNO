@@ -58,7 +58,7 @@ restService.post('/finUNO', function(req, res) {
                     }]
                 });            
             var exchange_scrip_match = 0;
-            if(exchange !== ""){
+            if(exchange !== "" && scripnames !== ""){
                 for(var i=0 ; i < scrips.length ; i++){
                     if(scripnames === scrips[i].FIELD1){
                         exchange_possibilities = exchange_possibilities.concat(" ");
