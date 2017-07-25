@@ -22,12 +22,12 @@ restService.post('/finUNO', function(req, res) {
             
         case "trade_happening" : 
             var buy_sell = req.body.result.parameters.buy_sell;
-            var exchange = req.body.result.contexts[0].parameters.exchange.original;
-            var price_type = req.body.result.contexts[0].parameters.price_type,original;
-            var product_type = req.body.result.contexts[0].parameters.product_type.original;
-            var quantity = req.body.result.contexts[0].parameters.quantity.original;
-            var shares = req.body.result.contexts[0].parameters.shares.original;
-            var validity = req.body.result.contexts[0].parameters.validity.original;
+            var exchange = req.body.result.parameters.exchange;
+            var price_type = req.body.result.parameters.price_type;
+            var product_type = req.body.result.parameters.product_type;
+            var quantity = req.body.result.parameters.quantity;
+            var shares = req.body.result.parameters.shares;
+            var validity = req.body.result.parameters.validity;
             var scripnames = req.body.result.parameters.scripnames;
             var exchange_possibilities = "The stock you have chosen is not available on ";
             exchange_possibilities = exchange_possibilities.concat(exchange);
