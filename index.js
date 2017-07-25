@@ -47,7 +47,7 @@ restService.post('/finUNO', function(req, res) {
                 if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1 || (inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase()) !== -1)
                     scripnames = scrips[i].FIELD1;
             }
-            if(exchange === "" || buy_sell === "" || quantity === "")
+            if(req.body.result.parameters.exchange === "" || buy_sell === "" || quantity === "")
                 return res.json({
                     contextOut : [{
                         name : "tradecontextout",
