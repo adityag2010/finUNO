@@ -71,6 +71,12 @@ restService.post('/finUNO', function(req, res) {
             }
             if(exchange_scrip_match === 0)
                 return res.json({
+                    contextOut : [{
+                        name : "tradecontextout",
+                        parameters : {
+                            scripnames : scripnames
+                        }
+                    }],
                     speech : exchange_possibilities,
                     displayText : exchange_possibilities
                 });
