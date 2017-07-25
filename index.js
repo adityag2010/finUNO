@@ -84,9 +84,18 @@ restService.post('/finUNO', function(req, res) {
             if(scripnames !== "" && exchange !== "" && buy_sell !== "" && quantity !== ""){
                 
                 return res.json({
-                   /* contextOut : [{
+                    contextOut : [{
+                        name : "trade_dialog_context",
                         lifespan : 1
-                    }],*/
+                        },
+                        {
+                        name : "a044aca4-554d-4acb-a8cf-ce1ac6c1f625_id_dialog_context",
+                        lifespan : 1  
+                        },
+                        {
+                            name : "trade_dialog_params_exchange",
+                            lifespan : 1
+                    }],
                     followupEvent : {
                         data : {
                             buy_sell : buy_sell,
