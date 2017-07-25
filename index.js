@@ -29,6 +29,9 @@ restService.post('/finUNO', function(req, res) {
             var shares = req.body.result.contexts[0].parameters.shares.original;
             var validity = req.body.result.contexts[0].parameters.validity.original;
             var scripnames = req.body.result.parameters.scripnames;
+            var exchange_possibilities = "The stock you have chosen is not available on ";
+            exchange_possibilities = exchange_possibilities.concat(exchange);
+            exchange_possibilities = exchange_possibilities.concat(". Please choose from the following :");
             inputText = inputText.replace(buy_sell , "");
             inputText = inputText.replace(exchange , "");
             inputText = inputText.replace(price_type , "");
@@ -44,16 +47,48 @@ restService.post('/finUNO', function(req, res) {
                 if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1 || (inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase()) !== -1)
                     scripnames = scrips[i].FIELD1;
             }
-            
+            if(exchange === "" || buy_sell === "" || quantity === "")
+                return res.json({
+                    contextOut : [{
+                        name : "tradecontextout",
+                        parameters : {
+                            scripnames : scripnames
+                        }
+                    }]
+                });            
             var exchange_scrip_match = 0;
             if(exchange !== ""){
                 for(var i=0 ; i < scrips.length ; i++){
-                    if(scripnames === scrips[i].FIELD1 && exchange === scrips[i].FIELD3){
-                        exchange_scrip_match = 1;
-                        break;
+                    if(scripnames === scrips[i].FIELD1){
+                        exchange_possibilities = exchange_possibilities.concat(" ");
+                        exchange_possibilities = exchange_possibilities.concat(scrips[i].FIELD3);
+                        if(exchange === scrips[i].FIELD3){
+                            exchange_scrip_match = 1;
+                            break;
+                        }
                     }
                 }
             }
+            if(exchange_scrip_match === 0)
+                return res.json({
+                    speech : exchange_possibilities,
+                    displayText : exchange_possibilities
+                });
+            return res.json({
+                followupEvent : {
+                    data : {
+                        buy_sell : buy_sell,
+                        exchange : exchange,
+                        quantity : quantity,
+                        scripnames : scripnames,
+                        price_type : price_type,
+                        product_type : product_type,
+                        validity : validity,
+                        shares : shares
+                    },
+                    name : "trade_slot_fill"
+                }
+            });
     }
 //--------------------------------------------------------------------------------------------------------    
     for(var i=0 ; i < scrips.length ; i++){
