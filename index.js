@@ -89,7 +89,7 @@ restService.post('/finUNO', function(req, res) {
                             buy_sell : buy_sell,
                             exchange : exchange,
                             quantity : quantity,
-                            scripnames : scripnames,
+                            scripnames1 : scripnames,
                             price_type : price_type,
                             product_type : product_type,
                             validity : validity,
