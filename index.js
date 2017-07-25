@@ -74,8 +74,7 @@ restService.post('/finUNO', function(req, res) {
                     contextOut : [{
                         name : "tradecontextout",
                         parameters : {
-                            scripnames : scripnames,
-                            random : typeof exchange
+                            scripnames : scripnames
                         }
                     }],
                     speech : exchange_possibilities,
