@@ -275,6 +275,41 @@ restService.post('/finUNO', function(req, res) {
                     name : "orderbook_scrip_specific_event_followup"
                 }
             });
+        case "positions_scrip_specific" :
+            var scripnames = req.body.result.parameters.scripnames;
+            for(var i=0 ; i < scrips.length ; i++){
+                if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1 || (inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase()) !== -1)
+                    scripnames = scrips[i].FIELD1;
+            }
+            if(scripnames === "")
+                return res.json({
+                    contextOut : [{
+                        name : "positions_scrip_specific_contextout",
+                        parameters : {
+                            scripnames : scripnames
+                        }
+                    }]
+                });
+            return res.json({
+                contextOut : [{
+                    name : "positions_scrip_specific_contextout",
+                    lifespan : 0
+                },
+                {
+                    name : "dcb4cb9a-2a48-459f-9ee0-f5866f19c4de_id_dialog_context",
+                    lifespan : 0          
+                },
+                {
+                    name : "positions-scrip_specific_dialog_context",
+                    lifespan : 0
+                }],
+                followupEvent : {
+                    data : {
+                        scripnames  : scripnames
+                    },
+                    name : "positions_scrip_specific_event_followup"
+                }
+            });
             
     }//switch case end
 });//post() method end
