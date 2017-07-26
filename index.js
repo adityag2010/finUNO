@@ -333,11 +333,50 @@ restService.post('/finUNO', function(req, res) {
                     name : "positions_scrip_specific_event_followup"
                 }
             });
-           
-     /*       return res.json({
-                speech : "Webhook is working!!",
-                displayText : "Webhook is working!!"
-            });  */
+            break;
+            
+        case "tradebook_scrip_specific" : //case statement----------------------------------------
+            var scripnames = req.body.result.parameters.scripnames;
+            inputText = inputText.toUpperCase();
+            inputText = inputText.replace("TRADEBOOK" , "");
+            inputText = inputText.replace("TRADE BOOK" , "");
+            inputText = inputText.replace("TRADES" , "");
+            inputText = inputText.replace("TRADE" , "");
+            for(var i=0 ; i < scrips.length ; i++){
+                if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1 || (inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase()) !== -1)
+                    scripnames = scrips[i].FIELD1;
+            }
+            if(scripnames === "")
+                return res.json({
+                    contextOut : [{
+                        name : "tradebook_scrip_specific_contextout",
+                        parameters : {
+                            scripnames : scripnames
+                        }
+                    }]
+                });
+            return res.json({
+                contextOut : [{
+                    name : "tradebook_scrip_specific_contextout",
+                    lifespan : 0
+                },
+                {
+                    name : "e34d58c9-7f41-4fd5-ad1c-d4260ba38bbd_id_dialog_context",
+                    lifespan : 0          
+                },
+                {
+                    name : "tradebook-scrip_specific_dialog_context",
+                    lifespan : 0
+                }],
+                followupEvent : {
+                    data : {
+                        scripnames  : scripnames
+                    },
+                    name : "tradebook_scrip_specific_event_followup"
+                }
+            });
+            break;
+
     }//switch case end
 });//post() method end
  
