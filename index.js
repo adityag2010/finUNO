@@ -97,6 +97,10 @@ restService.post('/finUNO', function(req, res) {
                         lifespan : 0    
                         },
                         {
+                        name : "tradecontextout",
+                        lifespan : 0    
+                        },
+                        {
                             name : "trade_dialog_params_exchange",
                             lifespan : 0
                     }],
