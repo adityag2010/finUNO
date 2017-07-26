@@ -101,8 +101,8 @@ restService.post('/finUNO', function(req, res) {
                         lifespan : 0    
                         },
                         {
-                            name : "trade_dialog_params_exchange",
-                            lifespan : 0
+                        name : "trade_dialog_params_exchange",
+                        lifespan : 0
                     }],
                     followupEvent : {
                         data : {
@@ -133,6 +133,18 @@ restService.post('/finUNO', function(req, res) {
                if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1 || (inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase()) !== -1){
                    scripnames = scrips[i].FIELD1;
                    return res.json({
+                       contextOut : [{
+                           name : "holdings_-_scrip_specific_dialog_params_scripnames",
+                           lifespan : 0
+                       },
+                       {
+                           name : "holdings_-_scrip_specific_dialog_context",
+                           lifespan : 0
+                       },
+                       {
+                           name : "9287948f-f373-4b45-b72e-0e0d4b1332dd_id_dialog_context",
+                           lifespan : 0
+                       }],
                        followupEvent : {
                            data : {
                                scripnames : scripnames,
