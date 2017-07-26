@@ -376,6 +376,26 @@ restService.post('/finUNO', function(req, res) {
                 }
             });
             break;
+            
+        case "quotes_happening" : //case statement------------------------------------------------
+            var chart_type = req.body.result.parameters.chart_type;
+            var exchange = req.body.result.parameters.exchange;
+            var quotes_fields = req.body.result.parameters.quotes_fields;
+            var scripnames = req.body.result.parameters.scripnames;
+            var exchange_possibilities = "The stock you have chosen is not available on ";
+            exchange_possibilities = exchange_possibilities.concat(exchange);
+            exchange_possibilities = exchange_possibilities.concat(". Please choose from the following :");
+            inputText = inputText.toUpperCase();
+            inputText = inputText.replace(chart_type.toUpperCase() , "");
+            inputText = inputText.replace(exchange.toUpperCase() , "");
+            inputText = inputText.replace(quotes_fields.toUpperCase() , "");
+            inputText = inputText.replace("QUOTES" , "");
+            inputText = inputText.replace("QUOTE" , "");
+            inputText = inputText.replace("TODAY'S" , "");
+            inputText = inputText.replace("TODAYS" , "");
+            inputText = inputText.replace("TODAY" , "");
+            inputText = inputText.replace("DAY" , "");
+            inputText = inputText.replace("THE" , "");
 
     }//switch case end
 });//post() method end
