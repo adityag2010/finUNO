@@ -199,7 +199,7 @@ restService.post('/finUNO', function(req, res) {
              if(exchange_scrip_match === 0 && scripnames !== "")
                 return res.json({
                     contextOut : [{
-                        name : "tradecontextout",
+                        name : "market_alert_contextout",
                         parameters : {
                             scripnames : scripnames
                         }
@@ -216,7 +216,11 @@ restService.post('/finUNO', function(req, res) {
                         },
                         {
                         name : "f82d7c2b-f7ed-41c1-90c2-2b9d5cb5d894_id_dialog_context",
-                        lifespan : 0  
+                        lifespan : 0
+                        },
+                        {
+                        name  : "market_alert_contextout",
+                        lifespan : 0    
                     }],
                     followupEvent : {
                         data : {
