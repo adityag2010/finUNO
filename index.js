@@ -20,7 +20,7 @@ restService.post('/finUNO', function(req, res) {
     
     switch(action) {
             
-        case "trade_happening" : 
+        case "trade_happening" : //case statement--------------------------------------
             
             var buy_sell = req.body.result.parameters.buy_sell;
             var exchange = req.body.result.parameters.exchange;
@@ -41,6 +41,7 @@ restService.post('/finUNO', function(req, res) {
             inputText = inputText.replace(quantity.toUpperCase() , "");
             inputText = inputText.replace(shares.toUpperCase() , "");
             inputText = inputText.replace(validity.toUpperCase() , "");
+            inputText = inputText.replace("TRADE" , "");
            /* do{
                 var temp = inputText;
                 inputText = inputText.replace(" ","");
@@ -122,13 +123,14 @@ restService.post('/finUNO', function(req, res) {
             }
             break;
             
-        case "holdings_scrip_specific" :
+        case "holdings_scrip_specific" : //case statement-------------------------------------
             
             var scripnames = req.body.result.parameters.scripnames;
             var shares = req.body.result.parameters.shares;
             inputText = inputText.toUpperCase();
-            //inputText = inputText.replace(scripnames.toUpperCase() , "");
             inputText = inputText.replace(shares.toUpperCase() , "");
+            inputText = inputText.replace("HOLDINGS" , "");
+            inputText = inputText.replace("HOLDING" , "");
            /* do{
                 var temp = inputText;
                 inputText = inputText.replace(" ","");
@@ -161,7 +163,7 @@ restService.post('/finUNO', function(req, res) {
             }
             break;
             
-        case "market_alert" :
+        case "market_alert" : //case statement---------------------------------------
             
             var alert_if = req.body.result.parameters.alert_if;
             var less_than_greater_than = req.body.result.parameters.less_than_greater_than;
@@ -176,6 +178,8 @@ restService.post('/finUNO', function(req, res) {
             inputText = inputText.replace(less_than_greater_than.toUpperCase() , "");
             inputText = inputText.replace(exchange.toUpperCase() , "");
             inputText = inputText.replace(value.toUpperCase() , "");
+            inputText = inputText.replace("ALERT ME" , "");
+            inputText = inputText.replace("ALERT" , "");
             for(var i=0 ; i < scrips.length ; i++){
                 if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1 || (inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase()) !== -1)
                     scripnames = scrips[i].FIELD1;
@@ -244,12 +248,16 @@ restService.post('/finUNO', function(req, res) {
             }
             break;
             
-        case "orderbook_scrip_specific" :
+        case "orderbook_scrip_specific" : //case statement-----------------------------------
             
             var orderbook_fields = req.body.result.parameters.orderbook_fields;
             var scripnames = req.body.result.parameters.scripnames;
             inputText = inputText.toUpperCase();
             inputText = inputText.replace(orderbook_fields.toUpperCase() , "");
+            inputText = inputText.replace("ORDERBOOK" , "");
+            inputText = inputText.replace("ORDER BOOK" , "");
+            inputText = inputText.replace("ORDERS" , "");
+            inputText = inputText.replace("ORDER" , "");
             for(var i=0 ; i < scrips.length ; i++){
                 if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1 || (inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase()) !== -1)
                     scripnames = scrips[i].FIELD1;
@@ -286,7 +294,7 @@ restService.post('/finUNO', function(req, res) {
             });
             break;
             
-        case "positions_scrip_specific" ://case statement
+        case "positions_scrip_specific" : //case statement--------------------------------------------
             
             var scripnames = req.body.result.parameters.scripnames;
             inputText = inputText.toUpperCase();
@@ -325,11 +333,134 @@ restService.post('/finUNO', function(req, res) {
                     name : "positions_scrip_specific_event_followup"
                 }
             });
-           
-     /*       return res.json({
-                speech : "Webhook is working!!",
-                displayText : "Webhook is working!!"
-            });  */
+            break;
+            
+        case "tradebook_scrip_specific" : //case statement----------------------------------------
+            var scripnames = req.body.result.parameters.scripnames;
+            inputText = inputText.toUpperCase();
+            inputText = inputText.replace("TRADEBOOK" , "");
+            inputText = inputText.replace("TRADE BOOK" , "");
+            inputText = inputText.replace("TRADES" , "");
+            inputText = inputText.replace("TRADE" , "");
+            for(var i=0 ; i < scrips.length ; i++){
+                if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1 || (inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase()) !== -1)
+                    scripnames = scrips[i].FIELD1;
+            }
+            if(scripnames === "")
+                return res.json({
+                    contextOut : [{
+                        name : "tradebook_scrip_specific_contextout",
+                        parameters : {
+                            scripnames : scripnames
+                        }
+                    }]
+                });
+            return res.json({
+                contextOut : [{
+                    name : "tradebook_scrip_specific_contextout",
+                    lifespan : 0
+                },
+                {
+                    name : "e34d58c9-7f41-4fd5-ad1c-d4260ba38bbd_id_dialog_context",
+                    lifespan : 0          
+                },
+                {
+                    name : "tradebook-scrip_specific_dialog_context",
+                    lifespan : 0
+                }],
+                followupEvent : {
+                    data : {
+                        scripnames  : scripnames
+                    },
+                    name : "tradebook_scrip_specific_event_followup"
+                }
+            });
+            break;
+            
+        case "quotes_happening" : //case statement------------------------------------------------
+            var chart_type = req.body.result.parameters.chart_type;
+            var exchange = req.body.result.parameters.exchange;
+            var quotes_fields = req.body.result.parameters.quotes_fields;
+            var scripnames = req.body.result.parameters.scripnames;
+            var exchange_possibilities = "The stock you have chosen is not available on ";
+            exchange_possibilities = exchange_possibilities.concat(exchange);
+            exchange_possibilities = exchange_possibilities.concat(". Please choose from the following :");
+            inputText = inputText.toUpperCase();
+            inputText = inputText.replace(chart_type.toUpperCase() , "");
+            inputText = inputText.replace(exchange.toUpperCase() , "");
+            inputText = inputText.replace(quotes_fields.toUpperCase() , "");
+            inputText = inputText.replace("QUOTES" , "");
+            inputText = inputText.replace("QUOTE" , "");
+            inputText = inputText.replace("TODAY'S" , "");
+            inputText = inputText.replace("TODAYS" , "");
+            inputText = inputText.replace("TODAY" , "");
+            inputText = inputText.replace("DAY" , "");
+            inputText = inputText.replace("THE" , "");
+            for(var i=0 ; i < scrips.length ; i++){
+                if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1 || (inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase()) !== -1)
+                    scripnames = scrips[i].FIELD1;
+            }
+            if(exchange === "")
+                return res.json({
+                    contextOut : [{
+                        name : "quotes_contextout",
+                        parameters : {
+                            scripnames : scripnames
+                        }
+                    }]
+                });            
+            var exchange_scrip_match = 0;
+            if(exchange !== "" && scripnames !== ""){
+                for(var i=0 ; i < scrips.length ; i++){
+                    if(scripnames === scrips[i].FIELD1){
+                        exchange_possibilities = exchange_possibilities.concat(" ");
+                        exchange_possibilities = exchange_possibilities.concat(scrips[i].FIELD3);
+                        if((exchange.toUpperCase()) === scrips[i].FIELD3){
+                            exchange_scrip_match = 1;
+                            break;
+                        }
+                    }
+                }
+            }
+            if(exchange_scrip_match === 0 && scripnames !== "")
+                return res.json({
+                    contextOut : [{
+                        name : "quotes_contextout",
+                        parameters : {
+                            scripnames : scripnames
+                        }
+                    }],
+                    speech : exchange_possibilities,
+                    displayText : exchange_possibilities
+                });
+            if(scripnames !== "" && exchange !== ""){
+                
+                return res.json({
+                    contextOut : [{
+                        name : "quotes_dialog_context",
+                        lifespan : 0
+                        },
+                        {
+                        name : "428bcd2f-87fb-4e59-8035-89ad86ab6b10_id_dialog_context",
+                        lifespan : 0  
+                        },
+                        {
+                        name : "quotes_contextout",
+                        lifespan : 0    
+                    }],
+                    followupEvent : {
+                        data : {
+                            exchange : exchange,
+                            chart_type : chart_type,
+                            scripnames : scripnames,
+                            quotes_fields : quotes_fields
+                        },
+                        name : "quotes_event_followup"
+                    }
+                });
+            }
+            break;
+
     }//switch case end
 });//post() method end
  
