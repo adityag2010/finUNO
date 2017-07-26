@@ -21,6 +21,7 @@ restService.post('/finUNO', function(req, res) {
     switch(action) {
             
         case "trade_happening" : 
+            
             var buy_sell = req.body.result.parameters.buy_sell;
             var exchange = req.body.result.parameters.exchange;
             var price_type = req.body.result.parameters.price_type;
@@ -119,7 +120,10 @@ restService.post('/finUNO', function(req, res) {
                     }
                 });
             }
+            break;
+            
         case "holdings_scrip_specific" :
+            
             var scripnames = req.body.result.parameters.scripnames;
             var shares = req.body.result.parameters.shares;
             inputText = inputText.toUpperCase();
@@ -155,8 +159,10 @@ restService.post('/finUNO', function(req, res) {
                    });
                }
             }
+            break;
             
         case "market_alert" :
+            
             var alert_if = req.body.result.parameters.alert_if;
             var less_than_greater_than = req.body.result.parameters.less_than_greater_than;
             var exchange = req.body.result.parameters.exchange;
@@ -236,7 +242,10 @@ restService.post('/finUNO', function(req, res) {
                     }
                 });
             }
+            break;
+            
         case "orderbook_scrip_specific" :
+            
             var orderbook_fields = req.body.result.parameters.orderbook_fields;
             var scripnames = req.body.result.parameters.scripnames;
             inputText = inputText.toUpperCase();
@@ -275,7 +284,10 @@ restService.post('/finUNO', function(req, res) {
                     name : "orderbook_scrip_specific_event_followup"
                 }
             });
-        case "positions_scrip_specific" :
+            break;
+            
+        case "positions_scrip_specific" ://case statement
+            
             var scripnames = req.body.result.parameters.scripnames;
             for(var i=0 ; i < scrips.length ; i++){
                 if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1 || (inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase()) !== -1)
@@ -310,7 +322,7 @@ restService.post('/finUNO', function(req, res) {
                     name : "positions_scrip_specific_event_followup"
                 }
             });
-     
+           
      /*       return res.json({
                 speech : "Webhook is working!!",
                 displayText : "Webhook is working!!"
