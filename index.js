@@ -236,7 +236,33 @@ restService.post('/finUNO', function(req, res) {
                     }
                 });
             }
-            
+        case "orderbook_scrip_specific" :
+            var orderbook_fields = req.body.result.parameters.orderbook_fields;
+            var scripnames = req.body.result.parameters.scripnames;
+            inputText = inputText.toUpperCase();
+            inputText = inputText.replace(orderbook_fields.toUpperCase() , "");
+            for(var i=0 ; i < scrips.length ; i++){
+                if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1 || (inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase()) !== -1)
+                    scripnames = scrips[i].FIELD1;
+            }
+            if(orderbook_fields === "" || scripnames === "")
+                return res.json({
+                    contextOut : [{
+                        name : "orderbook_scrip_specific",
+                        parameters : {
+                            scripnames : scripnames
+                        }
+                    }]
+                });
+            return res.json({
+                followupEvent : {
+                    data : {
+                        orderbook_fields : orderbook_fields,
+                        scripnames  : scripnames
+                    },
+                    name : "orderbook_scrip_specific_event_followup"
+                }
+            });
             
     }//switch case end
 });//post() method end
