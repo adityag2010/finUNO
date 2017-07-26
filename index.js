@@ -86,15 +86,19 @@ restService.post('/finUNO', function(req, res) {
                 return res.json({
                     contextOut : [{
                         name : "trade_dialog_context",
-                        lifespan : 1
+                        lifespan : 0
                         },
                         {
                         name : "a044aca4-554d-4acb-a8cf-ce1ac6c1f625_id_dialog_context",
-                        lifespan : 1  
+                        lifespan : 0  
+                        },
+                        {
+                        name : "trade_dialog_params_scripnames1",
+                        lifespan : 0    
                         },
                         {
                             name : "trade_dialog_params_exchange",
-                            lifespan : 1
+                            lifespan : 0
                     }],
                     followupEvent : {
                         data : {
