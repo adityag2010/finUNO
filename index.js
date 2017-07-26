@@ -156,6 +156,11 @@ restService.post('/finUNO', function(req, res) {
                }
             }
             
+        case "market_alert" :
+            var alert_if = req.body.result.parameters.alert_if;
+            var less_than_greater_than = req.body.result.parameters.less_than_greater_than;
+            var exchange = req.body.result.parameters.exchange;
+            var value = req.body.result.parameters.value;
     }
 });
  
