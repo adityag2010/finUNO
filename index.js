@@ -250,6 +250,10 @@ restService.post('/finUNO', function(req, res) {
             var scripnames = req.body.result.parameters.scripnames;
             inputText = inputText.toUpperCase();
             inputText = inputText.replace(orderbook_fields.toUpperCase() , "");
+            inputText = inputText.replace("ORDERBOOK" , "");
+            inputText = inputText.replace("ORDER BOOK" , "");
+            inputText = inputText.replace("ORDERS" , "");
+            inputText = inputText.replace("ORDER" , "");
             for(var i=0 ; i < scrips.length ; i++){
                 if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1 || (inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase()) !== -1)
                     scripnames = scrips[i].FIELD1;
