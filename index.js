@@ -289,6 +289,9 @@ restService.post('/finUNO', function(req, res) {
         case "positions_scrip_specific" ://case statement
             
             var scripnames = req.body.result.parameters.scripnames;
+            inputText = inputText.toUpperCase();
+            inputText = inputText.replace("POSITIONS" , "");
+            inputText = inputText.replace("POSITION" , "");
             for(var i=0 ; i < scrips.length ; i++){
                 if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1 || (inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase()) !== -1)
                     scripnames = scrips[i].FIELD1;
