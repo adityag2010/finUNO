@@ -180,7 +180,8 @@ restService.post('/finUNO', function(req, res) {
                         name : "market_alert_contextout",
                         parameters : {
                             scripnames : scripnames
-                        }
+                        },
+                        lifespan : 1
                     }]
                 }); 
             var exchange_scrip_match = 0;
@@ -202,7 +203,8 @@ restService.post('/finUNO', function(req, res) {
                         name : "market_alert_contextout",
                         parameters : {
                             scripnames : scripnames
-                        }
+                        },
+                        lifespan : 1
                     }],
                     speech : exchange_possibilities,
                     displayText : exchange_possibilities
