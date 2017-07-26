@@ -396,6 +396,70 @@ restService.post('/finUNO', function(req, res) {
             inputText = inputText.replace("TODAY" , "");
             inputText = inputText.replace("DAY" , "");
             inputText = inputText.replace("THE" , "");
+            for(var i=0 ; i < scrips.length ; i++){
+                if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1 || (inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase()) !== -1)
+                    scripnames = scrips[i].FIELD1;
+            }
+            if(exchange === "")
+                return res.json({
+                    contextOut : [{
+                        name : "quotes_contextout",
+                        parameters : {
+                            scripnames : scripnames
+                        }
+                    }]
+                });            
+            var exchange_scrip_match = 0;
+            if(exchange !== "" && scripnames !== ""){
+                for(var i=0 ; i < scrips.length ; i++){
+                    if(scripnames === scrips[i].FIELD1){
+                        exchange_possibilities = exchange_possibilities.concat(" ");
+                        exchange_possibilities = exchange_possibilities.concat(scrips[i].FIELD3);
+                        if((exchange.toUpperCase()) === scrips[i].FIELD3){
+                            exchange_scrip_match = 1;
+                            break;
+                        }
+                    }
+                }
+            }
+            if(exchange_scrip_match === 0 && scripnames !== "")
+                return res.json({
+                    contextOut : [{
+                        name : "quotes_contextout",
+                        parameters : {
+                            scripnames : scripnames
+                        }
+                    }],
+                    speech : exchange_possibilities,
+                    displayText : exchange_possibilities
+                });
+            if(scripnames !== "" && exchange !== ""){
+                
+                return res.json({
+                    contextOut : [{
+                        name : "quotes_dialog_context",
+                        lifespan : 0
+                        },
+                        {
+                        name : "428bcd2f-87fb-4e59-8035-89ad86ab6b10_id_dialog_context",
+                        lifespan : 0  
+                        },
+                        {
+                        name : "quotes_contextout",
+                        lifespan : 0    
+                    }],
+                    followupEvent : {
+                        data : {
+                            exchange : exchange,
+                            chart_type : chart_type,
+                            scripnames : scripnames,
+                            quotes_fields : quotes_fields
+                        },
+                        name : "quotes_event_followup"
+                    }
+                });
+            }
+            break;
 
     }//switch case end
 });//post() method end
