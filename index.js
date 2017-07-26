@@ -48,7 +48,7 @@ restService.post('/finUNO', function(req, res) {
                 if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1 || (inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase()) !== -1)
                     scripnames = scrips[i].FIELD1;
             }
-            if(req.body.result.parameters.exchange === "" || buy_sell === "" || quantity === "")
+            if(exchange === "" || buy_sell === "" || quantity === "")
                 return res.json({
                     contextOut : [{
                         name : "tradecontextout",
@@ -161,8 +161,79 @@ restService.post('/finUNO', function(req, res) {
             var less_than_greater_than = req.body.result.parameters.less_than_greater_than;
             var exchange = req.body.result.parameters.exchange;
             var value = req.body.result.parameters.value;
-    }
-});
+            var scripnames = req.body.result.parameters.scripnames;
+            var exchange_possibilities = "The stock you have chosen is not available on ";
+            exchange_possibilities = exchange_possibilities.concat(exchange);
+            exchange_possibilities = exchange_possibilities.concat(". Please choose from the following :");
+            inputText = inputText.toUpperCase();
+            inputText = inputText.replace(alert_if.toUpperCase() , "");
+            inputText = inputText.replace(less_than_greater_than.toUpperCase() , "");
+            inputText = inputText.replace(exchange.toUpperCase() , "");
+            inputText = inputText.replace(value.toUpperCase() , "");
+            for(var i=0 ; i < scrips.length ; i++){
+                if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1 || (inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase()) !== -1)
+                    scripnames = scrips[i].FIELD1;
+            }
+            if(exchange === "" || buy_sell === "" || quantity === "")
+                return res.json({
+                    contextOut : [{
+                        name : "market_alert_contextout",
+                        parameters : {
+                            scripnames : scripnames
+                        }
+                    }]
+                }); 
+            var exchange_scrip_match = 0;
+            if(exchange !== "" && scripnames !== ""){
+                for(var i=0 ; i < scrips.length ; i++){
+                    if(scripnames === scrips[i].FIELD1){
+                        exchange_possibilities = exchange_possibilities.concat(" ");
+                        exchange_possibilities = exchange_possibilities.concat(scrips[i].FIELD3);
+                        if((exchange.toUpperCase()) === scrips[i].FIELD3){
+                            exchange_scrip_match = 1;
+                            break;
+                        }
+                    }
+                }
+            }
+             if(exchange_scrip_match === 0 && scripnames !== "")
+                return res.json({
+                    contextOut : [{
+                        name : "tradecontextout",
+                        parameters : {
+                            scripnames : scripnames
+                        }
+                    }],
+                    speech : exchange_possibilities,
+                    displayText : exchange_possibilities
+                });
+            if(scripnames !== "" && exchange !== "" && alert_if !== "" && value !== "" && less_than_greater_than !== ""){
+                
+                return res.json({
+                    contextOut : [{
+                        name : "market_alert_dialog_context",
+                        lifespan : 0
+                        },
+                        {
+                        name : "f82d7c2b-f7ed-41c1-90c2-2b9d5cb5d894_id_dialog_context",
+                        lifespan : 0  
+                    }],
+                    followupEvent : {
+                        data : {
+                            alert_if : alert_if,
+                            exchange : exchange,
+                            less_than_greater_than : less_than_greater_than,
+                            scripnames : scripnames,
+                            value : value
+                        },
+                        name : "market_alert_event_followup"
+                    }
+                });
+            }
+            
+            
+    }//switch case end
+});//post() method end
  
 restService.listen((process.env.PORT || 8000), function() {
      console.log("Server up and listening");
