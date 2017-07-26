@@ -276,7 +276,7 @@ restService.post('/finUNO', function(req, res) {
                 }
             });
         case "positions_scrip_specific" :
-            var scripnames = req.body.result.parameters.scripnames;
+   /*         var scripnames = req.body.result.parameters.scripnames;
             for(var i=0 ; i < scrips.length ; i++){
                 if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1 || (inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase()) !== -1)
                     scripnames = scrips[i].FIELD1;
@@ -310,7 +310,11 @@ restService.post('/finUNO', function(req, res) {
                     name : "positions_scrip_specific_event_followup"
                 }
             });
-            
+     */
+            return res.json({
+                speech : "Webhook is working!!",
+                displayText : "Webhook is working!!"
+            });
     }//switch case end
 });//post() method end
  
