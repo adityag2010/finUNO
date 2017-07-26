@@ -248,13 +248,25 @@ restService.post('/finUNO', function(req, res) {
             if(scripnames === "")
                 return res.json({
                     contextOut : [{
-                        name : "orderbook_scrip_specific",
+                        name : "orderbook_scrip_specific_contextout",
                         parameters : {
                             scripnames : scripnames
                         }
                     }]
                 });
             return res.json({
+                contextOut : [{
+                    name : "orderbook_scrip_specific_contextout",
+                    lifespan : 0
+                },
+                {
+                    name : "84bc8d81-4673-4cfe-8048-d83bf239f72e_id_dialog_context",
+                    lifespan : 0          
+                },
+                {
+                    name : "orderbook-scrip_specific_dialog_context",
+                    lifespan : 0
+                }],
                 followupEvent : {
                     data : {
                         orderbook_fields : orderbook_fields,
