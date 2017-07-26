@@ -20,7 +20,7 @@ restService.post('/finUNO', function(req, res) {
     
     switch(action) {
             
-        case "trade_happening" : 
+        case "trade_happening" : //case statement--------------------------------------
             
             var buy_sell = req.body.result.parameters.buy_sell;
             var exchange = req.body.result.parameters.exchange;
@@ -41,6 +41,7 @@ restService.post('/finUNO', function(req, res) {
             inputText = inputText.replace(quantity.toUpperCase() , "");
             inputText = inputText.replace(shares.toUpperCase() , "");
             inputText = inputText.replace(validity.toUpperCase() , "");
+            inputText = inputText.replace("TRADE" , "");
            /* do{
                 var temp = inputText;
                 inputText = inputText.replace(" ","");
@@ -122,13 +123,14 @@ restService.post('/finUNO', function(req, res) {
             }
             break;
             
-        case "holdings_scrip_specific" :
+        case "holdings_scrip_specific" : //case statement-------------------------------------
             
             var scripnames = req.body.result.parameters.scripnames;
             var shares = req.body.result.parameters.shares;
             inputText = inputText.toUpperCase();
-            //inputText = inputText.replace(scripnames.toUpperCase() , "");
             inputText = inputText.replace(shares.toUpperCase() , "");
+            inputText = inputText.replace("HOLDINGS" , "");
+            inputText = inputText.replace("HOLDING" , "");
            /* do{
                 var temp = inputText;
                 inputText = inputText.replace(" ","");
@@ -161,7 +163,7 @@ restService.post('/finUNO', function(req, res) {
             }
             break;
             
-        case "market_alert" :
+        case "market_alert" : //case statement---------------------------------------
             
             var alert_if = req.body.result.parameters.alert_if;
             var less_than_greater_than = req.body.result.parameters.less_than_greater_than;
@@ -176,6 +178,8 @@ restService.post('/finUNO', function(req, res) {
             inputText = inputText.replace(less_than_greater_than.toUpperCase() , "");
             inputText = inputText.replace(exchange.toUpperCase() , "");
             inputText = inputText.replace(value.toUpperCase() , "");
+            inputText = inputText.replace("ALERT ME" , "");
+            inputText = inputText.replace("ALERT" , "");
             for(var i=0 ; i < scrips.length ; i++){
                 if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1 || (inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase()) !== -1)
                     scripnames = scrips[i].FIELD1;
@@ -244,7 +248,7 @@ restService.post('/finUNO', function(req, res) {
             }
             break;
             
-        case "orderbook_scrip_specific" :
+        case "orderbook_scrip_specific" : //case statement-----------------------------------
             
             var orderbook_fields = req.body.result.parameters.orderbook_fields;
             var scripnames = req.body.result.parameters.scripnames;
@@ -290,7 +294,7 @@ restService.post('/finUNO', function(req, res) {
             });
             break;
             
-        case "positions_scrip_specific" ://case statement
+        case "positions_scrip_specific" : //case statement--------------------------------------------
             
             var scripnames = req.body.result.parameters.scripnames;
             inputText = inputText.toUpperCase();
