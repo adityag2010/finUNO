@@ -471,10 +471,7 @@ restService.post('/finUNO', function(req, res) {
             inputText = inputText.replace("TODAY" , "");
             inputText = inputText.replace("DAY" , "");
             inputText = inputText.replace("THE" , "");
-     /*       for(var i=0 ; i < scrips.length ; i++){
-                if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1 || (inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase()) !== -1)
-                    scripnames = scrips[i].FIELD1;
-            }*/
+     
             for(var i=0 ; i < scrips.length ; i++){
                 if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1){
                     var j = (inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase());
