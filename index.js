@@ -52,12 +52,12 @@ restService.post('/finUNO', function(req, res) {
             }*/
             for(var i=0 ; i < scrips.length ; i++){
                 if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1){
-                    var j = (inputText.toLowerCase()).search((scrips).toLowerCase());
+                    var j = (inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase());
                     if((inputText[j-1] === " " || j === 0) && (inputText[j + (scrips[i].FIELD1).length] === " " || inputText.endsWith(scrips[i].FIELD1))
                     scripnames = scrips[i].FIELD1;
                 }
                 if((inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase()) !== -1){
-                        var j = (inputText.toLowerCase()).search((scrips).toLowerCase());
+                        var j = (inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase());
                         if((inputText[j-1] === " " || j === 0) && (inputText[j + (scrips[i].FIELD2).length] === " " || inputText.endsWith(scrips[i].FIELD2)))
                     scripnames = scrips[i].FIELD1;
                 }
