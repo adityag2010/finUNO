@@ -46,10 +46,22 @@ restService.post('/finUNO', function(req, res) {
                 var temp = inputText;
                 inputText = inputText.replace(" ","");
             }while(temp!==inputText); */
-            for(var i=0 ; i < scrips.length ; i++){
+    /*        for(var i=0 ; i < scrips.length ; i++){
                 if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1 || (inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase()) !== -1)
                     scripnames = scrips[i].FIELD1;
-            }
+            }*/
+            for(var i=0 ; i < scrips.length ; i++){
+                if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1){
+                    var j = (inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase());
+                    if((inputText[j-1] === " " || j === 0) && (inputText[j + (scrips[i].FIELD1).length] === " " || inputText.endsWith(scrips[i].FIELD1)))
+                    scripnames = scrips[i].FIELD1;
+                }
+                if((inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase()) !== -1){
+                        var j = (inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase());
+                        if((inputText[j-1] === " " || j === 0) && (inputText[j + (scrips[i].FIELD2).length] === " " || inputText.endsWith(scrips[i].FIELD2)))
+                    scripnames = scrips[i].FIELD1;
+                }
+            }  
             if(exchange === "" || buy_sell === "" || quantity === "")
                 return res.json({
                     contextOut : [{
@@ -131,14 +143,40 @@ restService.post('/finUNO', function(req, res) {
             inputText = inputText.replace(shares.toUpperCase() , "");
             inputText = inputText.replace("HOLDINGS" , "");
             inputText = inputText.replace("HOLDING" , "");
-           /* do{
-                var temp = inputText;
-                inputText = inputText.replace(" ","");
-            }while(temp!==inputText);*/
+           
             for(var i=0 ; i < scrips.length ; i++){
-               if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1 || (inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase()) !== -1){
-                   scripnames = scrips[i].FIELD1;
-                   return res.json({
+                if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1){
+                    var j = (inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase());
+                    if((inputText[j-1] === " " || j === 0) && (inputText[j + (scrips[i].FIELD1).length] === " " || inputText.endsWith(scrips[i].FIELD1))){
+                    scripnames = scrips[i].FIELD1;
+                    return res.json({
+                       contextOut : [{
+                           name : "holdings_-_scrip_specific_dialog_params_scripnames",
+                           lifespan : 0
+                       },
+                       {
+                           name : "holdings_-_scrip_specific_dialog_context",
+                           lifespan : 0
+                       },
+                       {
+                           name : "9287948f-f373-4b45-b72e-0e0d4b1332dd_id_dialog_context",
+                           lifespan : 0
+                       }],
+                       followupEvent : {
+                           data : {
+                               scripnames : scripnames,
+                               shares : shares
+                           },
+                           name : "holdings_scrip_specific_event_followup"
+                       }
+                   });    
+                    }
+                }
+                if((inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase()) !== -1){
+                    var j = (inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase());
+                    if((inputText[j-1] === " " || j === 0) && (inputText[j + (scrips[i].FIELD2).length] === " " || inputText.endsWith(scrips[i].FIELD2))){
+                    scripnames = scrips[i].FIELD1;
+                    return res.json({
                        contextOut : [{
                            name : "holdings_-_scrip_specific_dialog_params_scripnames",
                            lifespan : 0
@@ -159,8 +197,9 @@ restService.post('/finUNO', function(req, res) {
                            name : "holdings_scrip_specific_event_followup"
                        }
                    });
-               }
-            }
+                    }
+                }
+            }  
             break;
             
         case "market_alert" : //case statement---------------------------------------
@@ -180,10 +219,19 @@ restService.post('/finUNO', function(req, res) {
             inputText = inputText.replace(value.toUpperCase() , "");
             inputText = inputText.replace("ALERT ME" , "");
             inputText = inputText.replace("ALERT" , "");
+        
             for(var i=0 ; i < scrips.length ; i++){
-                if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1 || (inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase()) !== -1)
+                if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1){
+                    var j = (inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase());
+                    if((inputText[j-1] === " " || j === 0) && (inputText[j + (scrips[i].FIELD1).length] === " " || inputText.endsWith(scrips[i].FIELD1)))
                     scripnames = scrips[i].FIELD1;
-            }
+                }
+                if((inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase()) !== -1){
+                        var j = (inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase());
+                        if((inputText[j-1] === " " || j === 0) && (inputText[j + (scrips[i].FIELD2).length] === " " || inputText.endsWith(scrips[i].FIELD2)))
+                    scripnames = scrips[i].FIELD1;
+                }
+            }  
             if(exchange === "" || buy_sell === "" || quantity === "")
                 return res.json({
                     contextOut : [{
@@ -258,10 +306,19 @@ restService.post('/finUNO', function(req, res) {
             inputText = inputText.replace("ORDER BOOK" , "");
             inputText = inputText.replace("ORDERS" , "");
             inputText = inputText.replace("ORDER" , "");
+   
             for(var i=0 ; i < scrips.length ; i++){
-                if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1 || (inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase()) !== -1)
+                if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1){
+                    var j = (inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase());
+                    if((inputText[j-1] === " " || j === 0) && (inputText[j + (scrips[i].FIELD1).length] === " " || inputText.endsWith(scrips[i].FIELD1)))
                     scripnames = scrips[i].FIELD1;
-            }
+                }
+                if((inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase()) !== -1){
+                        var j = (inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase());
+                        if((inputText[j-1] === " " || j === 0) && (inputText[j + (scrips[i].FIELD2).length] === " " || inputText.endsWith(scrips[i].FIELD2)))
+                    scripnames = scrips[i].FIELD1;
+                }
+            }  
             if(scripnames === "")
                 return res.json({
                     contextOut : [{
@@ -300,10 +357,19 @@ restService.post('/finUNO', function(req, res) {
             inputText = inputText.toUpperCase();
             inputText = inputText.replace("POSITIONS" , "");
             inputText = inputText.replace("POSITION" , "");
+          
             for(var i=0 ; i < scrips.length ; i++){
-                if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1 || (inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase()) !== -1)
+                if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1){
+                    var j = (inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase());
+                    if((inputText[j-1] === " " || j === 0) && (inputText[j + (scrips[i].FIELD1).length] === " " || inputText.endsWith(scrips[i].FIELD1)))
                     scripnames = scrips[i].FIELD1;
-            }
+                }
+                if((inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase()) !== -1){
+                        var j = (inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase());
+                        if((inputText[j-1] === " " || j === 0) && (inputText[j + (scrips[i].FIELD2).length] === " " || inputText.endsWith(scrips[i].FIELD2)))
+                    scripnames = scrips[i].FIELD1;
+                }
+            }  
             if(scripnames === "")
                 return res.json({
                     contextOut : [{
@@ -342,10 +408,19 @@ restService.post('/finUNO', function(req, res) {
             inputText = inputText.replace("TRADE BOOK" , "");
             inputText = inputText.replace("TRADES" , "");
             inputText = inputText.replace("TRADE" , "");
+     
             for(var i=0 ; i < scrips.length ; i++){
-                if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1 || (inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase()) !== -1)
+                if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1){
+                    var j = (inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase());
+                    if((inputText[j-1] === " " || j === 0) && (inputText[j + (scrips[i].FIELD1).length] === " " || inputText.endsWith(scrips[i].FIELD1)))
                     scripnames = scrips[i].FIELD1;
-            }
+                }
+                if((inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase()) !== -1){
+                        var j = (inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase());
+                        if((inputText[j-1] === " " || j === 0) && (inputText[j + (scrips[i].FIELD2).length] === " " || inputText.endsWith(scrips[i].FIELD2)))
+                    scripnames = scrips[i].FIELD1;
+                }
+            }  
             if(scripnames === "")
                 return res.json({
                     contextOut : [{
@@ -396,10 +471,19 @@ restService.post('/finUNO', function(req, res) {
             inputText = inputText.replace("TODAY" , "");
             inputText = inputText.replace("DAY" , "");
             inputText = inputText.replace("THE" , "");
+     
             for(var i=0 ; i < scrips.length ; i++){
-                if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1 || (inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase()) !== -1)
+                if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1){
+                    var j = (inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase());
+                    if((inputText[j-1] === " " || j === 0) && (inputText[j + (scrips[i].FIELD1).length] === " " || inputText.endsWith(scrips[i].FIELD1)))
                     scripnames = scrips[i].FIELD1;
-            }
+                }
+                if((inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase()) !== -1){
+                        var j = (inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase());
+                        if((inputText[j-1] === " " || j === 0) && (inputText[j + (scrips[i].FIELD2).length] === " " || inputText.endsWith(scrips[i].FIELD2)))
+                    scripnames = scrips[i].FIELD1;
+                }
+            }  
             if(exchange === "")
                 return res.json({
                     contextOut : [{
