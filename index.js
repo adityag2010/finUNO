@@ -544,6 +544,55 @@ restService.post('/finUNO', function(req, res) {
                 });
             }
             break;
+        case "marketwatch_add_scrip" :  //case statement------------------------------------------
+            var scripnames = req.body.result.parameters.scripnames;
+            var marketwatch = req.body.result.parameters.marketwatch;
+            inputText = inputText.toUpperCase();
+            inputText = inputText.replace(marketwatch.toUpperCase , "");
+            inputText = inputText.replace("MARKET WATCH" , "");
+            inputText = inputText.replace("MARKETWATCH" , "");
+            for(var i=0 ; i < scrips.length ; i++){
+                if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1){
+                    var j = (inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase());
+                    if((inputText[j-1] === " " || j === 0) && (inputText[j + (scrips[i].FIELD1).length] === " " || inputText.endsWith(scrips[i].FIELD1)))
+                    scripnames = scrips[i].FIELD1;
+                }
+                if((inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase()) !== -1){
+                        var j = (inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase());
+                        if((inputText[j-1] === " " || j === 0) && (inputText[j + (scrips[i].FIELD2).length] === " " || inputText.endsWith(scrips[i].FIELD2)))
+                    scripnames = scrips[i].FIELD1;
+                }
+            }  
+            if(scripnames === "")
+                return res.json({
+                    contextOut : [{
+                        name : "marketwatch_add_scrip_contextout",
+                        parameters : {
+                            scripnames : scripnames
+                        }
+                    }]
+                });
+            return res.json({
+                contextOut : [{
+                    name : "marketwatch_add_scrip_contextout",
+                    lifespan : 0
+                },
+                {
+                    name : "e544710f-2234-4068-8012-19ea2917eb0c_id_dialog_context",
+                    lifespan : 0          
+                },
+                {
+                    name : "marketwatch-add_scrip_dialog_context",
+                    lifespan : 0
+                }],
+                followupEvent : {
+                    data : {
+                        scripnames  : scripnames
+                    },
+                    name : "marketwatch_add_scrip_event_followup"
+                }
+            });
+            break;
 
     }//switch case end
 });//post() method end
