@@ -587,7 +587,8 @@ restService.post('/finUNO', function(req, res) {
                 }],
                 followupEvent : {
                     data : {
-                        scripnames  : scripnames
+                        scripnames  : scripnames,
+                        marketwatch : marketwatch
                     },
                     name : "marketwatch_add_scrip_event_followup"
                 }
