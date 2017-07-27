@@ -47,8 +47,14 @@ restService.post('/finUNO', function(req, res) {
                 inputText = inputText.replace(" ","");
             }while(temp!==inputText); */
             for(var i=0 ; i < scrips.length ; i++){
-                if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1 || (inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase()) !== -1)
+                if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1){
+                    if((inputText[i-1] === " " || i === 0) && (inputText[i + (scrips[i].FIELD1).length] === " " || inputText[i + (scrips[i].FIELD1).length] === "\0"))
                     scripnames = scrips[i].FIELD1;
+                }
+                if((inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase()) !== -1){
+                        if((inputText[i-1] === " " || i === 0) && (inputText[i + (scrips[i].FIELD2).length] === " " || inputText[i + (scrips[i].FIELD2).length] === "\0"))
+                    scripnames = scrips[i].FIELD1;
+                }
             }
             if(exchange === "" || buy_sell === "" || quantity === "")
                 return res.json({
