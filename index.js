@@ -1,11 +1,11 @@
 'use strict';
 
-const express = require('express');
-const bodyParser = require('body-parser');
+const express = require('express');                                // Used to access express
+const bodyParser = require('body-parser');                         // Ussed too access the body-parser
 
 const restService = express();
 
-restService.use(bodyParser.urlencoded({
+restService.use(bodyParser.urlencoded({                           
     extended: true
 }));
 
@@ -13,14 +13,14 @@ restService.use(bodyParser.urlencoded({
 
 restService.use(bodyParser.json());
 
-restService.post('/finUNO', function(req, res) {
-    var scrips = require("./EQUITY_L.json");
+restService.post('/finUNO', function(req, res) {                    // Uses post() to get data fro appi.ai in json format
+    var scrips = require("./EQUITY_L.json");                        // gets data from the scrip list
     var inputText= req.body.result.resolvedQuery;
-    var action = req.body.result.action;
+    var action = req.body.result.action;                            // reads action field from json to use in swicth case 
     
     switch(action) {
             
-        case "trade_happening" : //case statement-----------------------------------------------------
+        case "trade_happening" : //trade intent------------------------------------------------
             
             var buy_sell = req.body.result.parameters.buy_sell;
             var exchange = req.body.result.parameters.exchange;
@@ -42,15 +42,8 @@ restService.post('/finUNO', function(req, res) {
             inputText = inputText.replace(shares.toUpperCase() , "");
             inputText = inputText.replace(validity.toUpperCase() , "");
             inputText = inputText.replace("TRADE" , "");
-           /* do{
-                var temp = inputText;
-                inputText = inputText.replace(" ","");
-            }while(temp!==inputText); */
-    /*        for(var i=0 ; i < scrips.length ; i++){
-                if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1 || (inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase()) !== -1)
-                    scripnames = scrips[i].FIELD1;
-            }*/
-            for(var i=0 ; i < scrips.length ; i++){
+          
+            for(var i=0 ; i < scrips.length ; i++){                   // Checks for scrip validity
                 if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1){
                     var j = (inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase());
                     if((inputText[j-1] === " " || j === 0) && (inputText[j + (scrips[i].FIELD1).length] === " " || inputText.endsWith(scrips[i].FIELD1)))
@@ -62,7 +55,7 @@ restService.post('/finUNO', function(req, res) {
                     scripnames = scrips[i].FIELD1;
                 }
             }  
-            if(exchange === "" || buy_sell === "" || quantity === "")
+            if(exchange === "" || buy_sell === "" || quantity === "")            //checks if all reqquired fields have been filled yet
                 return res.json({
                     contextOut : [{
                         name : "tradecontextout",
@@ -72,7 +65,7 @@ restService.post('/finUNO', function(req, res) {
                     }]
                 });            
             var exchange_scrip_match = 0;
-            if(exchange !== "" && scripnames !== ""){
+            if(exchange !== "" && scripnames !== ""){                      // checks if scripname matches the exchange name
                 for(var i=0 ; i < scrips.length ; i++){
                     if(scripnames === scrips[i].FIELD1){
                         exchange_possibilities = exchange_possibilities.concat(" ");
@@ -84,7 +77,7 @@ restService.post('/finUNO', function(req, res) {
                     }
                 }
             }
-            if(exchange_scrip_match === 0 && scripnames !== "")
+            if(exchange_scrip_match === 0 && scripnames !== "")          
                 return res.json({
                     contextOut : [{
                         name : "tradecontextout",
@@ -97,7 +90,7 @@ restService.post('/finUNO', function(req, res) {
                 });
             if(scripnames !== "" && exchange !== "" && buy_sell !== "" && quantity !== ""){
                 
-                return res.json({
+                return res.json({                                                     // returns final output by calling followupEvent 
                     contextOut : [{
                         name : "trade_dialog_context",
                         lifespan : 0
@@ -135,7 +128,7 @@ restService.post('/finUNO', function(req, res) {
             }
             break;
             
-        case "holdings_scrip_specific" : //case statement--------------------------------------------
+        case "holdings_scrip_specific" : // holdings scrip specific intent--------------------------------------------
             
             var scripnames = req.body.result.parameters.scripnames;
             var shares = req.body.result.parameters.shares;
@@ -143,8 +136,8 @@ restService.post('/finUNO', function(req, res) {
             inputText = inputText.replace(shares.toUpperCase() , "");
             inputText = inputText.replace("HOLDINGS" , "");
             inputText = inputText.replace("HOLDING" , "");
-           
-            for(var i=0 ; i < scrips.length ; i++){
+               
+            for(var i=0 ; i < scrips.length ; i++){                          //checking if scrip name is valid              
                 if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1){
                     var j = (inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase());
                     if((inputText[j-1] === " " || j === 0) && (inputText[j + (scrips[i].FIELD1).length] === " " || inputText.endsWith(scrips[i].FIELD1))){
@@ -172,11 +165,11 @@ restService.post('/finUNO', function(req, res) {
                    });    
                     }
                 }
-                if((inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase()) !== -1){
+                if((inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase()) !== -1){   //checking iif scrip name is valid
                     var j = (inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase());
                     if((inputText[j-1] === " " || j === 0) && (inputText[j + (scrips[i].FIELD2).length] === " " || inputText.endsWith(scrips[i].FIELD2))){
                     scripnames = scrips[i].FIELD1;
-                    return res.json({
+                    return res.json({                           // returning final output with followupEvent 
                        contextOut : [{
                            name : "holdings_-_scrip_specific_dialog_params_scripnames",
                            lifespan : 0
@@ -213,14 +206,14 @@ restService.post('/finUNO', function(req, res) {
             exchange_possibilities = exchange_possibilities.concat(exchange);
             exchange_possibilities = exchange_possibilities.concat(". Please choose from the following :");
             inputText = inputText.toUpperCase();
-            inputText = inputText.replace(alert_if.toUpperCase() , "");
-            inputText = inputText.replace(less_than_greater_than.toUpperCase() , "");
+            inputText = inputText.replace(alert_if.toUpperCase() , "");                 //replacing some keywords from the search string
+            inputText = inputText.replace(less_than_greater_than.toUpperCase() , "");   //to minimise the search 
             inputText = inputText.replace(exchange.toUpperCase() , "");
             inputText = inputText.replace(value.toUpperCase() , "");
             inputText = inputText.replace("ALERT ME" , "");
             inputText = inputText.replace("ALERT" , "");
         
-            for(var i=0 ; i < scrips.length ; i++){
+            for(var i=0 ; i < scrips.length ; i++){                             // checking if scrip name is valid
                 if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1){
                     var j = (inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase());
                     if((inputText[j-1] === " " || j === 0) && (inputText[j + (scrips[i].FIELD1).length] === " " || inputText.endsWith(scrips[i].FIELD1)))
@@ -232,7 +225,7 @@ restService.post('/finUNO', function(req, res) {
                     scripnames = scrips[i].FIELD1;
                 }
             }  
-            if(exchange === "" || buy_sell === "" || quantity === "")
+            if(exchange === "" || alert_if === "" || less_than_greater_than === "" || value === "")
                 return res.json({
                     contextOut : [{
                         name : "market_alert_contextout",
@@ -242,7 +235,7 @@ restService.post('/finUNO', function(req, res) {
                         lifespan : 1
                     }]
                 }); 
-            var exchange_scrip_match = 0;
+            var exchange_scrip_match = 0;                                            //checking if scrip name and exchange name match
             if(exchange !== "" && scripnames !== ""){
                 for(var i=0 ; i < scrips.length ; i++){
                     if(scripnames === scrips[i].FIELD1){
@@ -255,7 +248,7 @@ restService.post('/finUNO', function(req, res) {
                     }
                 }
             }
-             if(exchange_scrip_match === 0 && scripnames !== "")
+             if(exchange_scrip_match === 0 && scripnames !== "")         //printing message if scrip name and exchange don't match
                 return res.json({
                     contextOut : [{
                         name : "market_alert_contextout",
@@ -269,7 +262,7 @@ restService.post('/finUNO', function(req, res) {
                 });
             if(scripnames !== "" && exchange !== "" && alert_if !== "" && value !== "" && less_than_greater_than !== ""){
                 
-                return res.json({
+                return res.json({                                        //printing final output message using followupEvent
                     contextOut : [{
                         name : "market_alert_dialog_context",
                         lifespan : 0
@@ -307,7 +300,7 @@ restService.post('/finUNO', function(req, res) {
             inputText = inputText.replace("ORDERS" , "");
             inputText = inputText.replace("ORDER" , "");
    
-            for(var i=0 ; i < scrips.length ; i++){
+            for(var i=0 ; i < scrips.length ; i++){                                    //checking for validity of scrip name
                 if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1){
                     var j = (inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase());
                     if((inputText[j-1] === " " || j === 0) && (inputText[j + (scrips[i].FIELD1).length] === " " || inputText.endsWith(scrips[i].FIELD1)))
@@ -320,7 +313,7 @@ restService.post('/finUNO', function(req, res) {
                 }
             }  
             if(scripnames === "")
-                return res.json({
+                return res.json({                                   // returning scripname
                     contextOut : [{
                         name : "orderbook_scrip_specific_contextout",
                         parameters : {
@@ -328,7 +321,7 @@ restService.post('/finUNO', function(req, res) {
                         }
                     }]
                 });
-            return res.json({
+            return res.json({                                   // returning final output using followupEvent
                 contextOut : [{
                     name : "orderbook_scrip_specific_contextout",
                     lifespan : 0
@@ -358,7 +351,7 @@ restService.post('/finUNO', function(req, res) {
             inputText = inputText.replace("POSITIONS" , "");
             inputText = inputText.replace("POSITION" , "");
           
-            for(var i=0 ; i < scrips.length ; i++){
+            for(var i=0 ; i < scrips.length ; i++){                              //checking validity of scrip name
                 if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1){
                     var j = (inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase());
                     if((inputText[j-1] === " " || j === 0) && (inputText[j + (scrips[i].FIELD1).length] === " " || inputText.endsWith(scrips[i].FIELD1)))
@@ -379,7 +372,7 @@ restService.post('/finUNO', function(req, res) {
                         }
                     }]
                 });
-            return res.json({
+            return res.json({                                             //returning final output using followupEvent
                 contextOut : [{
                     name : "positions_scrip_specific_contextout",
                     lifespan : 0
@@ -410,7 +403,7 @@ restService.post('/finUNO', function(req, res) {
             inputText = inputText.replace("TRADES" , "");
             inputText = inputText.replace("TRADE" , "");
      
-            for(var i=0 ; i < scrips.length ; i++){
+            for(var i=0 ; i < scrips.length ; i++){                                 //checking validity of scrip name
                 if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1){
                     var j = (inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase());
                     if((inputText[j-1] === " " || j === 0) && (inputText[j + (scrips[i].FIELD1).length] === " " || inputText.endsWith(scrips[i].FIELD1)))
@@ -422,7 +415,7 @@ restService.post('/finUNO', function(req, res) {
                     scripnames = scrips[i].FIELD1;
                 }
             }  
-            if(scripnames === "")
+            if(scripnames === "")                                         //returning scrip name
                 return res.json({
                     contextOut : [{
                         name : "tradebook_scrip_specific_contextout",
@@ -431,7 +424,7 @@ restService.post('/finUNO', function(req, res) {
                         }
                     }]
                 });
-            return res.json({
+            return res.json({                                               //returning final output with followupEvent
                 contextOut : [{
                     name : "tradebook_scrip_specific_contextout",
                     lifespan : 0
@@ -463,7 +456,7 @@ restService.post('/finUNO', function(req, res) {
             exchange_possibilities = exchange_possibilities.concat(exchange);
             exchange_possibilities = exchange_possibilities.concat(". Please choose from the following :");
             inputText = inputText.toUpperCase();
-            inputText = inputText.replace(chart_type.toUpperCase() , "");
+            inputText = inputText.replace(chart_type.toUpperCase() , "");       //removing some keywords to simplify search string
             inputText = inputText.replace(exchange.toUpperCase() , "");
             inputText = inputText.replace(quotes_fields.toUpperCase() , "");
             inputText = inputText.replace("QUOTES" , "");
@@ -474,7 +467,7 @@ restService.post('/finUNO', function(req, res) {
             inputText = inputText.replace("DAY" , "");
             inputText = inputText.replace("THE" , "");
      
-            for(var i=0 ; i < scrips.length ; i++){
+            for(var i=0 ; i < scrips.length ; i++){                        //checking for validity of scrip name
                 if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1){
                     var j = (inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase());
                     if((inputText[j-1] === " " || j === 0) && (inputText[j + (scrips[i].FIELD1).length] === " " || inputText.endsWith(scrips[i].FIELD1)))
@@ -495,7 +488,7 @@ restService.post('/finUNO', function(req, res) {
                         }
                     }]
                 });            
-            var exchange_scrip_match = 0;
+            var exchange_scrip_match = 0;                              //checking if exchange name matches
             if(exchange !== "" && scripnames !== ""){
                 for(var i=0 ; i < scrips.length ; i++){
                     if(scripnames === scrips[i].FIELD1){
@@ -508,7 +501,7 @@ restService.post('/finUNO', function(req, res) {
                     }
                 }
             }
-            if(exchange_scrip_match === 0 && scripnames !== "")
+            if(exchange_scrip_match === 0 && scripnames !== "")    //if exchange doesn't match then returning appropriate response
                 return res.json({
                     contextOut : [{
                         name : "quotes_contextout",
@@ -521,7 +514,7 @@ restService.post('/finUNO', function(req, res) {
                 });
             if(scripnames !== "" && exchange !== ""){
                 
-                return res.json({
+                return res.json({                                               //returning final output using followupEVent
                     contextOut : [{
                         name : "quotes_dialog_context",
                         lifespan : 0
@@ -556,7 +549,7 @@ restService.post('/finUNO', function(req, res) {
             inputText = inputText.replace("MARKET WATCH" , "");
             inputText = inputText.replace("MARKETWATCH" , "");
             inputText = inputText.replace("ADD" , "");
-            for(var i=0 ; i < scrips.length ; i++){
+            for(var i=0 ; i < scrips.length ; i++){                                   //checking for validity of scrip name
                 if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1){
                     var j = (inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase());
                     if((inputText[j-1] === " " || j === 0) && (inputText[j + (scrips[i].FIELD1).length] === " " || inputText.endsWith(scrips[i].FIELD1)))
@@ -568,7 +561,7 @@ restService.post('/finUNO', function(req, res) {
                     scripnames = scrips[i].FIELD1;
                 }
             }  
-            if(scripnames === "")
+            if(scripnames === "")                                       //returning scrip name
                 return res.json({
                     contextOut : [{
                         name : "marketwatch_add_scrip_contextout",
@@ -577,7 +570,7 @@ restService.post('/finUNO', function(req, res) {
                         }
                     }]
                 });
-            return res.json({
+            return res.json({                                                 //final return statement with followupEvent
                 contextOut : [{
                     name : "marketwatch_add_scrip_contextout",
                     lifespan : 0
@@ -609,7 +602,7 @@ restService.post('/finUNO', function(req, res) {
             inputText = inputText.replace("MARKET WATCH" , "");
             inputText = inputText.replace("MARKETWATCH" , "");
             inputText = inputText.replace("REMOVE" , "");
-            for(var i=0 ; i < scrips.length ; i++){
+            for(var i=0 ; i < scrips.length ; i++){                             //checking validity of scrip name
                 if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1){
                     var j = (inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase());
                     if((inputText[j-1] === " " || j === 0) && (inputText[j + (scrips[i].FIELD1).length] === " " || inputText.endsWith(scrips[i].FIELD1)))
@@ -621,7 +614,7 @@ restService.post('/finUNO', function(req, res) {
                     scripnames = scrips[i].FIELD1;
                 }
             }  
-            if(scripnames === "")
+            if(scripnames === "")                                         //returrning scrip name
                 return res.json({
                     contextOut : [{
                         name : "marketwatch_remove_scrip_contextout",
@@ -630,7 +623,7 @@ restService.post('/finUNO', function(req, res) {
                         }
                     }]
                 });
-            return res.json({
+            return res.json({                                           //final return statement with followupEvent
                 contextOut : [{
                     name : "marketwatch_remove_scrip_contextout",
                     lifespan : 0
