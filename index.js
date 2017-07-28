@@ -20,7 +20,7 @@ restService.post('/finUNO', function(req, res) {
     
     switch(action) {
             
-        case "trade_happening" : //case statement--------------------------------------
+        case "trade_happening" : //case statement-----------------------------------------------------
             
             var buy_sell = req.body.result.parameters.buy_sell;
             var exchange = req.body.result.parameters.exchange;
@@ -135,7 +135,7 @@ restService.post('/finUNO', function(req, res) {
             }
             break;
             
-        case "holdings_scrip_specific" : //case statement-------------------------------------
+        case "holdings_scrip_specific" : //case statement--------------------------------------------
             
             var scripnames = req.body.result.parameters.scripnames;
             var shares = req.body.result.parameters.shares;
@@ -202,7 +202,7 @@ restService.post('/finUNO', function(req, res) {
             }  
             break;
             
-        case "market_alert" : //case statement---------------------------------------
+        case "market_alert" : //case statement------------------------------------------------------
             
             var alert_if = req.body.result.parameters.alert_if;
             var less_than_greater_than = req.body.result.parameters.less_than_greater_than;
@@ -296,7 +296,7 @@ restService.post('/finUNO', function(req, res) {
             }
             break;
             
-        case "orderbook_scrip_specific" : //case statement-----------------------------------
+        case "orderbook_scrip_specific" : //case statement-------------------------------------------
             
             var orderbook_fields = req.body.result.parameters.orderbook_fields;
             var scripnames = req.body.result.parameters.scripnames;
@@ -402,6 +402,7 @@ restService.post('/finUNO', function(req, res) {
             break;
             
         case "tradebook_scrip_specific" : //case statement----------------------------------------
+            
             var scripnames = req.body.result.parameters.scripnames;
             inputText = inputText.toUpperCase();
             inputText = inputText.replace("TRADEBOOK" , "");
@@ -453,6 +454,7 @@ restService.post('/finUNO', function(req, res) {
             break;
             
         case "quotes_happening" : //case statement------------------------------------------------
+           
             var chart_type = req.body.result.parameters.chart_type;
             var exchange = req.body.result.parameters.exchange;
             var quotes_fields = req.body.result.parameters.quotes_fields;
@@ -543,6 +545,112 @@ restService.post('/finUNO', function(req, res) {
                     }
                 });
             }
+            break;
+            
+        case "marketwatch_add_scrip" :  //case statement------------------------------------------
+            
+            var scripnames = req.body.result.parameters.scripnames;
+            var marketwatch = req.body.result.parameters.marketwatch;
+            inputText = inputText.toUpperCase();
+            inputText = inputText.replace(marketwatch.toUpperCase , "");
+            inputText = inputText.replace("MARKET WATCH" , "");
+            inputText = inputText.replace("MARKETWATCH" , "");
+            inputText = inputText.replace("ADD" , "");
+            for(var i=0 ; i < scrips.length ; i++){
+                if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1){
+                    var j = (inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase());
+                    if((inputText[j-1] === " " || j === 0) && (inputText[j + (scrips[i].FIELD1).length] === " " || inputText.endsWith(scrips[i].FIELD1)))
+                    scripnames = scrips[i].FIELD1;
+                }
+                if((inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase()) !== -1){
+                        var j = (inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase());
+                        if((inputText[j-1] === " " || j === 0) && (inputText[j + (scrips[i].FIELD2).length] === " " || inputText.endsWith(scrips[i].FIELD2)))
+                    scripnames = scrips[i].FIELD1;
+                }
+            }  
+            if(scripnames === "")
+                return res.json({
+                    contextOut : [{
+                        name : "marketwatch_add_scrip_contextout",
+                        parameters : {
+                            scripnames : scripnames
+                        }
+                    }]
+                });
+            return res.json({
+                contextOut : [{
+                    name : "marketwatch_add_scrip_contextout",
+                    lifespan : 0
+                },
+                {
+                    name : "e544710f-2234-4068-8012-19ea2917eb0c_id_dialog_context",
+                    lifespan : 0          
+                },
+                {
+                    name : "marketwatch-add_scrip_dialog_context",
+                    lifespan : 0
+                }],
+                followupEvent : {
+                    data : {
+                        scripnames  : scripnames,
+                        marketwatch : marketwatch
+                    },
+                    name : "marketwatch_add_scrip_event_followup"
+                }
+            });
+            break;
+            
+        case "marketwatch_remove_scrip" : //case statement------------------------------------------------------------
+            
+            var scripnames = req.body.result.parameters.scripnames;
+            var marketwatch = req.body.result.parameters.marketwatch;
+            inputText = inputText.toUpperCase();
+            inputText = inputText.replace(marketwatch.toUpperCase , "");
+            inputText = inputText.replace("MARKET WATCH" , "");
+            inputText = inputText.replace("MARKETWATCH" , "");
+            inputText = inputText.replace("REMOVE" , "");
+            for(var i=0 ; i < scrips.length ; i++){
+                if((inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase()) !== -1){
+                    var j = (inputText.toLowerCase()).search((scrips[i].FIELD1).toLowerCase());
+                    if((inputText[j-1] === " " || j === 0) && (inputText[j + (scrips[i].FIELD1).length] === " " || inputText.endsWith(scrips[i].FIELD1)))
+                    scripnames = scrips[i].FIELD1;
+                }
+                if((inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase()) !== -1){
+                        var j = (inputText.toLowerCase()).search((scrips[i].FIELD2).toLowerCase());
+                        if((inputText[j-1] === " " || j === 0) && (inputText[j + (scrips[i].FIELD2).length] === " " || inputText.endsWith(scrips[i].FIELD2)))
+                    scripnames = scrips[i].FIELD1;
+                }
+            }  
+            if(scripnames === "")
+                return res.json({
+                    contextOut : [{
+                        name : "marketwatch_remove_scrip_contextout",
+                        parameters : {
+                            scripnames : scripnames
+                        }
+                    }]
+                });
+            return res.json({
+                contextOut : [{
+                    name : "marketwatch_remove_scrip_contextout",
+                    lifespan : 0
+                },
+                {
+                    name : "2c95a433-4596-4ab2-bb9c-2e6222d975b3_id_dialog_context",
+                    lifespan : 0          
+                },
+                {
+                    name : "marketwatch-remove_scrip_dialog_context",
+                    lifespan : 0
+                }],
+                followupEvent : {
+                    data : {
+                        scripnames  : scripnames,
+                        marketwatch : marketwatch
+                    },
+                    name : "marketwatch_remove_scrip_event_followup"
+                }
+            });
             break;
 
     }//switch case end
